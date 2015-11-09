@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TTM4128 - Netconf demo 2015</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+      /* Two-column even */
+      .left-even-column {
+        width: 48%;
+        height: 92%;
+        float: left;
+      }
+      .right-even-column {
+        width: 48%;
+        float: right;
+        padding-top: 1em;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      img {
+      width: 100%;
+      }
+      .svg-resize {
+        width: 70%;
+      }
+      .img-height {
+        width: 60%
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Netconf demo
+## Kristoffer Dalby
+
+---
+# Agenda
+
+1. Network
+2. Get configuration
+3. Configuration staging
+4. Configuring a interface
+5. Configuring a route
+6. Cisco and Juniper
+7. Software
+
+---
+# Network
+.svg-resize[
+![netconf_network](img/netconf_network.svg)
+]
+
+---
+# Get configuration
+```xml
+<rpc>
+    <get-config>
+        <source>
+            <running/>
+        </source>
+    </get-config>
+</rpc>
+]]>]]>
+```
+---
+# Configuration staging
+1. Candidate
+2. Running
+3. Startup
+
+---
+# Configuring a Juniper interface
+1. Lock the configuration
+2. Configure a interface
+3. Commit the candidate config to running
+4. Unlock the configuration
+
+---
+# Configuring a Juniper interface
+```xml
+<rpc>
+    <lock>
+        <target>
+            <candidate/>
+        </target>
+    </lock>
+</rpc>
+]]>]]>
+```
+---
+# Configuring a Juniper interface
+```xml
+<rpc>
+    <edit-config>
+        <target>
+            <candidate/>
+        </target>
+        <config>
+            <configuration>
+            <interfaces>
+                <interface>
+                    <name>em1</name>
+                    <unit>
+                        <name>0</name>
+                        <family>
+                            <inet>
+                                <address>
+                                    <name>10.0.2.70/24</name>
+                                </address>
+                            </inet>
+                        </family>
+                    </unit>
+                </interface>
+            </interfaces>
+            </configuration>
+        </config>
+    </edit-config>
+</rpc>
+]]>]]>
+```
+---
+# Configuring a Juniper interface
+```xml
+<rpc>
+    <commit/>
+</rpc>
+]]>]]>
+```
+```xml
+<rpc>
+    <unlock>
+        <target>
+            <candidate/>
+        </target>
+    </unlock>
+</rpc>
+]]>]]>
+```
+---
+# Configure SNMP
+```xml
+<rpc>
+    <edit-config>
+        <target>
+            <candidate/>
+        </target>
+        <config>
+            <configuration>
+                <snmp>
+                    <location>IT-West</location>
+                    <contact>Kristoffer Dalby</contact>
+                    <community>
+                        <name>ttm4128</name>
+                        <authorization>read-only</authorization>
+                    </community>
+                </snmp>
+            </configuration>
+        </config>
+    </edit-config>
+</rpc>
+]]>]]>
+```
+```xml
+<rpc>
+    <commit/>
+</rpc>
+]]>]]>
+```
+
+---
+# Cisco and Juniper
+Problem:
+Different vendors implements the XML in different ways. 
+
+Let us have a look at an example -->
+---
+# Cisco and Juniper
+.left-even-column[
+Juniper
+```xml
+<rpc>
+    <get-config>
+        <source>
+            <running/>
+        </source>
+        <filter type="subtree">
+            <configuration>
+                <interfaces>
+                    <interface>
+                        <name>lo0</name>
+                    </interface>
+                </interfaces>
+            </configuration>
+        </filter>
+    </get-config>
+</rpc>
+```
+]
+.right-even-column[
+Cisco
+```xml
+<?xml version="1.0"?>
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"xmlns:cpi="http://www.cisco.com/cpi_10/schema" 
+message-id="101">
+   <get-config> 
+        <source> 
+             <running/> 
+         </source> 
+          <filter> 
+              <config-format-text-cmd>
+               <text-filter-spec>
+        interface Loopback0
+                 </text-filter-spec>
+              </config-format-text-cmd> 
+          </filter> 
+      </get-config> 
+</rpc>
+```
+]
+---
+# Cisco and Juniper
+.left-even-column[
+Juniper
+```xml
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:junos="http://xml.juniper.net/junos/12.1R1/junos">
+<data>
+<configuration xmlns="http://xml.juniper.net/xnm/1.1/xnm" junos:commit-seconds="1447087015" junos:commit-localtime="2015-11-09 16:36:55 UTC" junos:commit-user="root">
+    <interfaces>
+        <interface>
+            <name>lo0</name>
+            <unit>
+                <name>0</name>
+                <description>test456</description>
+                <family>
+                    <inet>
+                    </inet>
+                </family>
+            </unit>
+        </interface>
+    </interfaces>
+</configuration>
+</data>
+</rpc-reply>
+```
+]
+.right-even-column[
+Cisco
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc-reply message-id="101"xmlns=\"urn:ietf:params:netconf:base:1.0\">
+   <data>
+      <cli-config-data>
+interface Loopback0
+description test456
+no ip address
+load-interval 30
+end
+       </cli-config-data>
+    </data>
+</rpc-reply>
+```
+]
+---
+# Software
+* Tail-f Confd
+* Tail-f NCS
+* NCClient
+* Juniper
+* Lot of library implementations
+---
+# ?
+---
+# Presentation
+[github.com/kradalby/presentations](https://github.com/kradalby/presentations)
+
+
+    </textarea>
+    <script src="static/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
