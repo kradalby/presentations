@@ -20,3 +20,4 @@ deploy:
     commands:
       - cd /usr/local/www/kradalby.no/presentations
       - git pull
+      - echo "done"
