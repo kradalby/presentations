@@ -1,0 +1,22 @@
+build:
+    image: kradalby/ci-tox:latest
+    pull: true
+    commands:
+      - echo "Deploying"
+
+#notify:
+#  email:
+#    from: drone@fap.no
+#    host: smtp.stud.ntnu.no
+#    port: 25
+#    recipients:
+#      - kradalby@kradalby.no
+
+deploy:
+  ssh:
+    host: onyx.fap.no
+    user: www
+    port: 22
+    commands:
+      - cd /usr/local/www/kradalby.no/presentations
+      - git pull
