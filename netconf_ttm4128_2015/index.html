@@ -197,7 +197,7 @@ class: center, middle
 ---
 # Cisco and Juniper
 Problem:
-Different vendors implements the XML in different ways. 
+Different vendors implements the XML in different ways.
 
 Let us have a look at an example -->
 ---
@@ -227,20 +227,20 @@ Juniper
 Cisco
 ```xml
 <?xml version="1.0"?>
-<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"xmlns:cpi="http://www.cisco.com/cpi_10/schema" 
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"xmlns:cpi="http://www.cisco.com/cpi_10/schema"
 message-id="101">
-   <get-config> 
-        <source> 
-             <running/> 
-         </source> 
-          <filter> 
+   <get-config>
+        <source>
+             <running/>
+         </source>
+          <filter>
               <config-format-text-cmd>
                <text-filter-spec>
         interface Loopback0
                  </text-filter-spec>
-              </config-format-text-cmd> 
-          </filter> 
-      </get-config> 
+              </config-format-text-cmd>
+          </filter>
+      </get-config>
 </rpc>
 ```
 ]
@@ -302,7 +302,7 @@ end
 
 
     </textarea>
-    <script src="static/remark-latest.min.js">
+    <script src="../static/remark-latest.min.js">
     </script>
     <script>
       var slideshow = remark.create();
