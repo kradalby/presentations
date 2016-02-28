@@ -4,16 +4,51 @@
         <title>Application of Agent Technology</title>
         <meta charset="utf-8">
         <style>
-            @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-            @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
-            @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
-            body { font-family: 'Droid Serif'; }
-            h1, h2, h3, h4 {
-                font-family: 'Yanone Kaffeesatz';
-                font-weight: normal;
-            }
-            .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3, h4 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+      /* Two-column even */
+      .left-even-column {
+        width: 50%;
+        height: 92%;
+        float: left;
+      }
+      .right-even-column {
+        width: 50%;
+        float: right;
+        padding-top: 1em;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      img {
+      width: 100%;
+      }
+      .svg-resize {
+        width: 70%;
+      }
+      .img-height {
+        width: 60%
+      }
         </style>
     </head>
     <body>
@@ -34,6 +69,79 @@ class: center, middle
 ---
 
 # An Agent for Optimizing Airline Ticket Purchasing
+.left-column[
+- Problem
+- Buy early
+- Optimal?
+
+]
+.right-column[
+![Airplane ticket price](img/airplane_price.png)
+]
+
+---
+
+# An Agent for Optimizing Airline Ticket Purchasing
+- Earlier attempts
+    - Spesific airline
+    - Spesific time
+    - Spesific flight
+- Bing Travels/MSN Travels
+
+---
+
+# An Agent for Optimizing Airline Ticket Purchasing
+.left-column[
+- Learing Agent
+- Feature classes
+- Aggregated data
+]
+
+.right-column[
+![Airplane agent result](img/airplane_features.png)
+]
+
+---
+
+# An Agent for Optimizing Airline Ticket Purchasing
+![Airplane agent result](img/airplane_result.png)
+
+---
+
+# An Agent for Optimizing Airline Ticket Purchasing
+- Multi agent system
+- Cooperation
+- Change in strategy
+
+---
+
+# Cooperation In Stochastic Games Through Communication
+- Problem
+- Prisoners' Dilemma
+- Negotiation
+- Learning agents
+- Can communicate
+    - Do not have to send information
+    - Do not have to read received information
+
+---
+
+# Cooperation In Stochastic Games Through Communication
+.left-even-column[
+- Goal: Negotiate a contract
+- Goal: Get optimal score
+- Best compromise equilibrium
+]
+
+.right-even-column[
+![Payoff](img/stoch_payoff.png)
+]
+
+---
+# Conclusion
+- Very different systems
+- Cooperation and opponents
+- Both system are suitable
 
         </textarea>
         <script src="../../static/remark-latest.min.js">
