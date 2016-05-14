@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Analysis of Concurrent Systems</title>
+        <meta charset="utf-8">
+        <style>
+         @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+         @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+         @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+         
+         body { font-family: 'Droid Serif'; }
+         h1, h2, h3, h4 {
+           font-family: 'Yanone Kaffeesatz';
+           font-weight: normal;
+         }
+         /* Two-column layout */
+         .left-column {
+           color: #777;
+           width: 20%;
+           height: 92%;
+           float: left;
+         }
+         .left-column h2:last-of-type, .left-column h3:last-child {
+           color: #000;
+         }
+         .right-column {
+           width: 75%;
+           float: right;
+           padding-top: 1em;
+         }
+         /* Two-column even */
+         .left-even-column {
+           width: 50%;
+           height: 92%;
+           float: left;
+         }
+         .right-even-column {
+           width: 50%;
+           float: right;
+           padding-top: 1em;
+         }
+         .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+         img {
+           width: 100%;
+         }
+         .svg-resize {
+           width: 70%;
+         }
+         .img-height {
+           width: 60%
+         }
+        </style>
+    </head>
+    <body>
+        <textarea id="source">
+
+class: center, middle
+
+# Final presentation
+## Analysis of Concurrent Systems
+#### Kristoffer Dalby
+
+---
+
+# Agenda
+
+- Source Dedicated Server
+- The Server
+- Protocols
+  - Server Queries
+  - Source RCON Protocol
+- erlsrcds
+- Testing
+  - 
+
+---
+
+# Source Dedicated Server (SRCDS)
+
+- Runs on Linux, OSX and Windows
+- Server for Source Engine games
+  - Counter-Strike Source
+  - Counter-Strike Global Offensive
+  - Portal
+  - Team Fortress 2
+- Every implementation differ
+
+---
+
+# The Server
+
+- Counter Strike Source
+  - Shooter from 2004
+  - Supports remote control (RCON)
+  - Supports Server Queries
+- I run it in a Linux Docker container
+
+---
+
+# Protocols
+## Server Queries
+
+- UDP based
+- The documentation is _OK_
+- Each SRCDS implementation is Different
+
+
+### Example:
+### CS:GO Rules reply is broken since update CSGO 1.32.3.0 (Feb 21, 2014). Before the update rules got truncated when exceeding MTU, after the update rules reply is not sent at all.
+
+---
+
+# Protocols
+## Source RCON Protocol
+
+- TCP based (with authentication)
+- The documentation is better
+- Basically the same for all SRCDS
+
+---
+
+# erlsrcds
+
+Implements Server queries in three calls:
+
+```
+
+erlsrcds:info("127.0.0.1", 27015).
+    #{"appid" => 240,
+      "dedicated" => "d",
+      "edf" => 51,
+      "gamedesc" => "Counter-Strike: Source"...
+
+
+
+erlsrcds:player("127.0.0.1", 27015).
+   [#{"index" => 0,"kill" => 9,"name" => "VANGUARD","time" => 1222.013427734375},
+   #{"index" => 0,"kill" => 6,"name" => "Mucto","time" => 1268.7869873046875}]
+
+
+
+erlsrcds:rules("127.0.0.1", 27015).
+    #{"sv_maxusrcmdprocessticks" => "24",
+      "sv_pausable" => "0",
+      "sv_footsteps" => "1",
+      "tf_arena_round_time" => "0"...
+```
+
+---
+
+# erlsrcds
+
+Implements Source RCON in one call:
+
+```
+erlsrcds:rcon("status", "passwrd", "127.0.0.1", 27015).
+    "hostname: Counter-Strike: Source\nversion : 3398447/24 3398447 secure\nudp/
+     ip  : 172.17.0.2:27015  (public ip: 87.221.81.95)\nsteamid : [A:1:81591300:
+     6817] (90101271421058052)\nmap     : de_dust2...
+
+
+erlsrcds:rcon("sv_gravity 600", "passwrd", "127.0.0.1", 27015).
+    []
+
+
+erlsrcds:rcon("sv_gravity", "passwrd", "127.0.0.1", 27015).
+"\"sv_gravity\" = \"600\" ( def. \"800\" )\n game notify replicated\n - World gravity.\n"
+```
+
+---
+
+# Testing
+
+---
+
+# Questions?
+
+
+
+        </textarea>
+        <script src="../../../static/remark-latest.min.js">
+        </script>
+        <script>
+            var slideshow = remark.create();
+        </script>
+    </body>
+</html>
+
