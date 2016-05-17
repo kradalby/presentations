@@ -123,7 +123,7 @@ class: center, middle
 
 Implements Server queries in three calls:
 
-```
+```erlang
 
 erlsrcds:info("127.0.0.1", 27015).
     #{"appid" => 240,
@@ -152,11 +152,11 @@ erlsrcds:rules("127.0.0.1", 27015).
 
 Implements Source RCON in one call:
 
-```
+```erlang
 erlsrcds:rcon("status", "passwrd", "127.0.0.1", 27015).
     "hostname: Counter-Strike: Source\nversion : 3398447/24 3398447 secure\nudp/
      ip  : 172.17.0.2:27015  (public ip: 87.221.81.95)\nsteamid : [A:1:81591300:
-     6817] (90101271421058052)\nmap     : de_dust2...
+     6817] (90101271421058052)\nmap     : de_dust2..."
 
 
 erlsrcds:rcon("sv_gravity 600", "passwrd", "127.0.0.1", 27015).
@@ -181,7 +181,10 @@ erlsrcds:rcon("sv_gravity", "passwrd", "127.0.0.1", 27015).
         <script src="../../../static/remark-latest.min.js">
         </script>
         <script>
-            var slideshow = remark.create();
+            var slideshow = remark.create({
+              highlightLanguage: 'erlang',
+              highlightStyle: 'monokai'
+            });
         </script>
     </body>
 </html>
