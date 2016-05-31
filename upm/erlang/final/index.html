@@ -43,11 +43,10 @@
          img {
            width: 100%;
          }
-         .svg-resize {
-           width: 70%;
-         }
-         .img-height {
-           width: 60%
+         .img-right-bottom {
+           float: right;
+           width: 50%;
+           
          }
         </style>
     </head>
@@ -71,7 +70,8 @@ class: center, middle
   - Source RCON Protocol
 - erlsrcds
 - Testing
-  - 
+  - erlsrcds Library
+  - sv_cheats behaviour
 
 ---
 
@@ -85,6 +85,9 @@ class: center, middle
   - Team Fortress 2
 - Every implementation differ
 
+.img-right-bottom[
+    ![Source engine](./img/source.svg)
+]
 ---
 
 # The Server
@@ -95,6 +98,9 @@ class: center, middle
   - Supports Server Queries
 - I run it in a Linux Docker container
 
+.img-right-bottom[
+    ![Counter-Strike](./img/cs.svg)
+]
 ---
 
 # Protocols
@@ -102,7 +108,7 @@ class: center, middle
 
 - UDP based
 - The documentation is _OK_
-- Each SRCDS implementation is Different
+- Each SRCDS implementation is different
 
 
 ### Example:
@@ -110,13 +116,16 @@ class: center, middle
 
 ---
 
-# Protocols
+# Protocols (2)
 ## Source RCON Protocol
 
 - TCP based (with authentication)
 - The documentation is better
-- Basically the same for all SRCDS
+- Basically the same for all implementations of SRCDS
 
+.img-right-bottom[
+    ![RCON packet exchange](./img/rcon_exchange_dia.svg)
+]
 ---
 
 # erlsrcds
@@ -144,15 +153,17 @@ erlsrcds:rules("127.0.0.1", 27015).
       "sv_pausable" => "0",
       "sv_footsteps" => "1",
       "tf_arena_round_time" => "0"...
+.
 ```
 
 ---
 
-# erlsrcds
+# erlsrcds (2)
 
 Implements Source RCON in one call:
 
 ```erlang
+
 erlsrcds:rcon("status", "passwrd", "127.0.0.1", 27015).
     "hostname: Counter-Strike: Source\nversion : 3398447/24 3398447 secure\nudp/
      ip  : 172.17.0.2:27015  (public ip: 87.221.81.95)\nsteamid : [A:1:81591300:
@@ -165,16 +176,158 @@ erlsrcds:rcon("sv_gravity 600", "passwrd", "127.0.0.1", 27015).
 
 erlsrcds:rcon("sv_gravity", "passwrd", "127.0.0.1", 27015).
 "\"sv_gravity\" = \"600\" ( def. \"800\" )\n game notify replicated\n - World gravity.\n"
+
+
+erlsrcds:parse_rcon(erlsrcds:rcon("sv_gravity", "passwrd", "127.0.0.1", 27015)).
+    "732"
+.
 ```
 
 ---
 
 # Testing
 
+- Library behaviour
+  - Sequential queries and executions
+  - Parallel queries and executions
+- SRCDS sv_cheats behaviour
+
+---
+
+# Testing - erlsrcds - Sequential
+
+### 1000 out of 1000 successful tests
+
+### Weird behaviour found:
+
+The query times out a lot.
+- 3963 UDP Queries
+- 3415 successful
+- 548 timeouts
+- ~ 13,8% timeout to localhost
+
+```
+OK, passed 1000 tests
+
+73.31% {erlsrcds_qc_state,change_rules,2}
+23.76% {erlsrcds_qc_state,check_rules,0}
+ 2.60% {erlsrcds_qc_state,checklevel,0}
+ 0.32% {erlsrcds_qc_state,changelevel,1}
+```
+---
+
+
+# Testing - erlsrcds - Parallel
+With UDP based rule checking.
+
+### 1000 out of 1000 successful tests
+
+### Weird behaviour found:
+
+The query times out a lot.
+- 4397 UDP Queries
+- 3695 successful
+- 702 timeouts
+- ~ 16% timeout to localhost
+
+```
+OK, passed 1000 tests
+
+71.84% {erlsrcds_qc_state,change_rules,2}
+25.36% {erlsrcds_qc_state,check_rules,0}
+ 2.45% {erlsrcds_qc_state,checklevel,0}
+ 0.35% {erlsrcds_qc_state,changelevel,1}
+```
+
+---
+
+# Timeout investigation
+
+**erlsrcds, 200 queries, 10 times:**
+`[31,58,59,30,59,59,29,59,60,29]`
+
+**SourceLib, 200 queries, 10 times:**
+`[35,59,54,34,59,57,32,59,59,31]`
+
+
+**VPN via Eduroam to a server in Norway:**
+
+erlsrcds: `[28,37,39,40,28,30,39,39,39,38]`
+
+**Server to server in Norway:**
+
+erlsrcds: `[20,20,20,20,20,20,20,20,20,20]`
+
+SourceLib: `[65,80,88,73,73,87,80,66,87,87]`
+---
+
+# Testing - erlsrcds - Parallel
+With RCON (TCP) based rule checking.
+
+`check_one_rule` calls `erlsrcds:parse_rcon(erlsrcds:rcon())`.
+
+```erlang
+1. erlsrcds_qc_state:check_one_rule("mp_freezetime") -> "3"
+   erlsrcds_qc_state:check_one_rule("mp_freezetime") -> "3"
+   erlsrcds_qc_state:change_rules("sv_gravity", "723") -> []
+2. erlsrcds_qc_state:check_one_rule("mp_freezetime") -> "3"
+   erlsrcds_qc_state:check_one_rule("mp_freezetime") -> "3"
+   erlsrcds_qc_state:check_one_rule("sv_gravity") -> "565"
+```
+### Demo
+```
+erlsrcds_qc_high:eqc().
+erlsrcds_qc_high:eqcp().
+```
+
+
+---
+# Verifying sv_cheats
+- Mode for debugging
+- Allowes the server to change "game breaking" settings
+  - e.g. See thru walls, run faster.
+- Documented behaviour
+
+When sv_cheats 0:
+- Settings that are flagged are not changed
+- Turning off cheats results in all flagged settings being set to default.
+
+When sv_cheats 1:
+- Everything can be changed
+- Turning on cheats do not change any other setting.
+
+---
+
+# Verifying sv_cheats (2)
+
+- Goal, check that the documented behaviour is implemented
+
+Test by:
+- Implement a QC state machine that obeys the behaviour
+- Try to provoke race conditions:
+  - Plain run
+  - Adjusting frequency
+  - Running calls in parallel
+
+### Demo
+```
+erlsrcds_qc_sv_cheats:eqc().
+erlsrcds_qc_sv_cheats:eqcp().
+```
+
+---
+# Conclusion
+
+
+### Usage
+The project is currently used in Nettbrett2.
+
+The code is available on Github.
+
+[github.com/kradalby/erlsrcds](https://github.com/kradalby/erlsrcds)
 ---
 
 # Questions?
-
 
 
         </textarea>
