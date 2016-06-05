@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Final presentation Xploration</title>
+        <meta charset="utf-8">
+        <style>
+         @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+         @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+         @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+         
+         body { font-family: 'Droid Serif'; }
+         h1, h2, h3, h4 {
+         font-family: 'Yanone Kaffeesatz';
+         font-weight: normal;
+         }
+         /* Two-column layout */
+         .left-column {
+         color: #777;
+         width: 20%;
+         height: 92%;
+         float: left;
+         }
+         .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+         }
+         .right-column {
+         width: 75%;
+         float: right;
+         padding-top: 1em;
+         }
+         /* Two-column even */
+         .left-even-column {
+         width: 50%;
+         height: 92%;
+         float: left;
+         }
+         .right-even-column {
+         width: 50%;
+         float: right;
+         padding-top: 1em;
+         }
+         .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+         img {
+         width: 100%;
+         }
+         .svg-resize {
+         width: 70%;
+         }
+         .img-height {
+         width: 60%
+         }
+         img {
+           width: 100%;
+         }
+         .img-right-bottom {
+           float: right;
+           width: 50%;
+
+         }
+
+        </style>
+    </head>
+    <body>
+        <textarea id="source">
+
+class: center, middle
+
+# Xploration
+## Company02
+#### Tale Prestmo
+#### Oliver Philipps
+#### Kristoffer Dalby
+
+---
+
+# Agents
+
+- Platform
+  - World
+  - Spacecraft
+- Company
+  - Company
+  - Capsule
+  - Rover
+
+.img-right-bottom[
+   ![rover](./img/rover.jpg)
+]
+
+---
+
+# Behaviours
+
+- World
+  - Receiver  
+  - InitialMap
+  - RoverMovment
+  - AnalyzeMineral
+  - SendFindings
+  - BroadCastMovment
+- Spacecraft
+  - Registration
+  - ReleaseCapsule
+  - Timing
+  - UpdateFindings
+
+---
+
+# Behaviours (2)
+
+- Company
+  - Registration
+  - ReleaseCapsule
+- Capsule
+  - InitialBehaviour
+  - ReceiveFindings
+- Rover
+  - Initial
+  - ReceiveMoementInfo
+  - Receiver
+  - SendFindings
+  - SendMoveInfo
+  - Strategy
+
+
+---
+
+# Behaviours (3)
+
+- Own Ontology
+- InitialLocation
+    - Location
+    - Capsule
+    - Rover
+
+.img-right-bottom[
+    ![90s hip hop](./img/90sbehaviour.jpg)
+]
+
+---
+
+# Strategy
+
+- State Machine
+  - Splits actions into State
+      - Analyze
+      - Check range
+      - Send findings
+      - Select cell
+      - Move
+- Analyze and move waits for results
+- Select cell triggers the move calculation
+
+.img-right-bottom[
+   ![strategy](./img/strategy.png)
+]
+
+---
+
+# Strategy (2)
+
+- Movement calculation
+- Xplore mode
+  - Calculates the best possible next cell
+  - Uses an array of factors
+      - Visited/Unvisited
+      - Claimed
+      - In range of capsule
+      - Evaluation of the neighbours
+- Delivery mode
+    - Triggered by unsent findings
+    - Find the closest cell in range
+    - Use SP to find the best way
+
+.img-right-bottom[
+   ![drunkwalk](./img/drunkwalk.jpg)
+]
+
+
+---
+
+# Cheating oppertunities
+
+- Moving and analyzing at the same time
+- Send multiple and/or wrong movement information
+- Send findings through other companies capsule
+- Backdoors
+- Forge messages
+- Try accessing the map / loads it from disk
+
+---
+
+# Conclusion
+
+- Bad design
+  - The Capsule does not ack the rovers message
+  - Our code suffers from "learn by doing"
+  - We have a few different code styles
+  - Refactor
+ 
+- Message pasing in Java and JADE needs a lot of code
+  - Hard to get a quick overview
+  - A lot of manual checks that should have been automatic
+
+- Agents are not the solution to every problem
+  - Using a combination of objref and agents is nice
+ 
+
+---
+
+# Questions ?
+
+       </textarea>
+        <script src="../../../static/remark-latest.min.js">
+        </script>
+        <script>
+            var slideshow = remark.create();
+        </script>
+    </body>
+</html>
+
