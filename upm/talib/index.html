@@ -119,6 +119,9 @@ class: center, middle
 - MONA
 - Minor libraries
 
+.img-right-bottom[
+    ![Packaging](./img/packaging.svg)
+]
 ---
 # Timbuk
 
@@ -128,7 +131,7 @@ class: center, middle
 - The code is open source (GNU LGPL v2)
 - Tree automatons are implemented as tuple of lists
 
-INSERT TIMBUK LOGO
+![Timbuk](./img/timbuk.gif)
 
 ???
 - IRISA is a French research insitute that focuses on computer science and informatics.
@@ -163,8 +166,9 @@ INSERT TIMBUK LOGO
 - The code is open source (GNU GPLv2)
 - Written in C/C++ by BRICS/Aarhus University
 
-
-INSERT MONA LOGO
+.img-right-bottom[
+    ![Tree](./img/tree.svg)
+]
 
 ???
 - WS1S (Weak monadic Second-order theory of 1 successor)
@@ -177,6 +181,7 @@ INSERT MONA LOGO
   - This is done before the automaton startes working.
 - Eager minimisation
   - When the automaton is modified, a Myhill-Nerode minimisation is performed
+    - Myhill-Nerode: TODO
   - Yielded unexpected good results.
   - MONA uses DAGs for representations instead of trees to representate formulae.
 - AT&T is also apart of the collaboration
@@ -196,17 +201,54 @@ INSERT MONA LOGO
   - Uses hash tables to represent transition tables
 
 ???
-- Tree tranducers:
-- Hedge automata: 
+- Tree tranducers: TODO 
+- Hedge automata: TODO
 
 ---
 # Analysis
+## Abstract Regular Tree Model Checking
+
+Regular tree model checking: 
+τ∗ (L(Init)) ∩ L(Bad) = ∅
+
+- Abstract regular tree model checking
+- Abstraction based on languages of finite height
+- Abstraction based on predicate languages
+
+
+???
+- Where _Init_ is a tree automaton denoting the set of initial states of the system.
+- Where _Bad_ is a tree automaton expressing the set of states violating the safety properties of the system.
+- Where τ is a linear tree transducer representing the transition relation of the system.
+
+- Abstract RTMC is a acceleration technique based on the _abstract-check-refine_ paradigm
+- Abstraction based on languages of finite height, defines two states of a tree automaton as equivalent if their languages up to a given height n are identical. Similar to Myhill-Nerode.
+- Abstraction based on predicate languages defines two states of a tree automaton equivalent if their languages have a nonempty intersection with exactly the same subset of languages represented by tree automata from P.
 
 ---
-# Abstract Regular Tree Model Checking
+# Analysis (2)
+## Requirements
 
----
-# Requirements
+- Create finite tree automaton denoting the:
+  - Union
+  - Intersection
+  - Complement
+- Determinisation of a finite tree automaton
+- Minimasation of a finite tree automaton
+- Reducing the size of a nondeterministic finite tree automaton
+- Determining inclusion of languages of given finite automata
+- Tree transducers in structure-perserving form
+- The ability to efficiently traverse all states in order
+
+???
+- creating a finite tree automaton denoting the union of languages of given finite tree automata
+- creating a finite tree automaton denoting the intersection of languages of given finite tree automata
+- creating a finite tree automaton denoting the complement of the language of a given finite tree automaton
+- Deterministaion: 
+- Minimasation: 
+- Reducing without Determinisation
+- Determining inclusion while avoiding determinisation of any automaton.
+
 
 ---
 # Design
@@ -295,7 +337,20 @@ GRAPHS
 
 # Questions?
 
+---
+# Links
 
+Presentation: [kradalby.no/presentations/upm/talib](https://kradalby.no/presentations/upm/talib/index.html)
+Github: [github.com/kradalby/presentations](https://github.com/kradalby/presentations/blob/master/upm/talib/index.html)
+Paper: [An Efficient Finite Tree Automata Library](http://arxiv.org/abs/1204.3240)
+
+---
+# Image credits
+
+- Slide # Exisiting Tree Automata libraries
+  - Packaging by Richard Slater from the Noun Project
+- Slide # MONA
+  - Tree by Richard Nixon from the Noun Project
         </textarea>
         <script src="../../static/remark-latest.min.js">
         </script>
