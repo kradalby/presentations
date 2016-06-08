@@ -60,6 +60,8 @@ class: center, middle
 ---
 # Tree Automata
 
+
+
 ---
 # Exisiting Tree Automata libraries
 - Timbuk
@@ -268,11 +270,42 @@ MTBDD representing formula: `¬x1¬x2¬x3A + x1x3B + ¬x1x2x3B`
 - In this example: TODO
 
 ---
+# Operations on MTBDDs
+### Apply
+- Performs a given binary operation on all respective sink nodes
+```
+Apply lhs rhs op = λx . op (lhs x) (rhs x)
+```
+
+### MonadicApply
+- Performs a given unary operation on all sink nodes of a given MTBDD
+```
+MonadicApply tf op = λx . op (tf x)
+```
+
+???
+The Lambda-calculus is used as a definition and applications of functions that work with MTBDDs.
+
+### Apply
+- The standard Apply function that performs a given binary operation op on all respective sink nodes (this means sink nodes accessible over the same symbol) of two input MTBDDs (lhs and rhs for left-hand side MTBDD and right-hand side MTBDD respectively) and returns the resulting MTBDD.
+
+### MonadicApply
+- The monadic version of Apply function that performs a given unary operation op on all sink nodes of input MTBDD tf and returns the resulting MTBDD.
+
+---
 # Operations on MTBDDs (Union)
 
+$$ \Delta_\cup   \left (  \right ) := Apply (\Delta_1 ()) (\Delta_2 ()) (\lambda X Y . X \cup Y) $$
 .img80c[
     ![Language union](./img/transition_union.svg)
 ]
+
+???
+- For efficiency the transition functions of the input automaton is reused as much as possible.
+- TODO?
+- Computations of Qu and Qfu are trivial
+- Since all transitions are stored in a single shared MTBDD the computation only needs one apply
+ 
 
 ---
 # Operations on MTBDDs (Intersection)
@@ -280,6 +313,10 @@ MTBDD representing formula: `¬x1¬x2¬x3A + x1x3B + ¬x1x2x3B`
 .img80c[
     ![Language intersection](./img/transition_intersection.svg)
 ]
+
+???
+
+
 ---
 # Performing tranduction step
 
@@ -410,6 +447,11 @@ SA is used in the test with downward simulation.
 ]
 ---
 # Conclusion
+- Aim of the thesis
+- The library is able to to the needed operations
+- It does a lot of them efficiently
+- A efficient representation of Tree automata has been proposed
+- The library can complement exisiting solution, specially on big alphabets
 
 ---
 # libvata (VATA)
@@ -436,20 +478,35 @@ SA is used in the test with downward simulation.
 
 ---
 # Image credits
-
+- All diagrams are by Ondřej Lengál
+  - Except Slide # Representation (BDD) which is Wikimedia Commons
 - Slide # Exisiting Tree Automata libraries
   - Packaging by Richard Slater from the Noun Project
 - Slide # MONA
   - Tree by Richard Nixon from the Noun Project
 
         </textarea>
-        <script src="../../static/remark-latest.min.js">
-        </script>
+        <script src="../../static/remark-latest.min.js"></script>
+        <script src="../../static/MathJax/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured"></script>
         <script>
-            var slideshow = remark.create({
-              highlightLanguage: 'c',
-              highlightStyle: 'monokai'
-            });
+         var slideshow = remark.create({
+            highlightLanguage: 'c',
+            highlightStyle: 'monokai'
+          });
+         
+         // Setup MathJax
+         MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+          });
+         MathJax.Hub.Queue(function() {
+            $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+            return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+          });
+         
+         MathJax.Hub.Configured();
         </script>
     </body>
 </html>
