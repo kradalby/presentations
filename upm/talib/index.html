@@ -3,65 +3,7 @@
     <head>
         <title>AN EFFICIENT FINITE TREE AUTOMATA LIBRARY</title>
         <meta charset="utf-8">
-        <style>
-         @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-         @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
-         @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
-
-         body { font-family: 'Droid Serif'; }
-         h1, h2, h3, h4 {
-           font-family: 'Yanone Kaffeesatz';
-           font-weight: normal;
-         }
-         /* Two-column layout */
-         .left-column {
-           color: #777;
-           width: 20%;
-           height: 92%;
-           float: left;
-         }
-         .left-column h2:last-of-type, .left-column h3:last-child {
-           color: #000;
-         }
-         .right-column {
-           width: 75%;
-           float: right;
-           padding-top: 1em;
-         }
-         /* Two-column even */
-         .left-even-column {
-           width: 50%;
-           height: 92%;
-           float: left;
-         }
-         .right-even-column {
-           width: 50%;
-           float: right;
-           padding-top: 1em;
-         }
-         .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
-         img {
-           width: 100%;
-         }
-         .img-right-bottom {
-           float: right;
-           width: 50%;
-
-         }
-         table {
-           width: 100%;
-           border: 1px solid #000000;
-           border-collapse: collapse;
-         }
-         td, th {
-           text-align: right;
-           vertical-align: top; 
-           border: 1px solid #000;
-           border-collapse: inherit;
-           padding: 0.1em;
-         }
-        
-        </style>
+        <link rel="stylesheet" type="text/css" href="../../static/style.css">
     </head>
     <body>
         <textarea id="source">
@@ -108,7 +50,11 @@ class: center, middle
 - Written by Ondřej Lengál
 
 
-> The aim of this work is to design an efficient library that would be suitable for sophisticated tree model checking techniques while being flexible enough to be used even for meth- ods which have not yet been developed.
+> The aim of this work is to design an efficient library that would be suitable for sophisticated tree model checking techniques while being flexible enough to be used even for methods which have not yet been developed.
+
+.img50r[
+   ![BRNO University of Technology](./img/brno.svg)
+]
 
 ---
 # Tree Automata
@@ -119,7 +65,7 @@ class: center, middle
 - MONA
 - Minor libraries
 
-.img-right-bottom[
+.img50r[
     ![Packaging](./img/packaging.svg)
 ]
 ---
@@ -131,7 +77,7 @@ class: center, middle
 - The code is open source (GNU LGPL v2)
 - Tree automatons are implemented as tuple of lists
 
-![Timbuk](./img/timbuk.gif)
+![Timbuk](./img/timbuk.svg)
 
 ???
 - IRISA is a French research insitute that focuses on computer science and informatics.
@@ -166,7 +112,7 @@ class: center, middle
 - The code is open source (GNU GPLv2)
 - Written in C/C++ by BRICS/Aarhus University
 
-.img-right-bottom[
+.img50r[
     ![Tree](./img/tree.svg)
 ]
 
@@ -256,14 +202,75 @@ Regular tree model checking:
 ---
 # Representation
 
----
-# Operations on MTBDDs
+.img50c[
+    ![Representation of shared MTBDD](./img/representation_shared_mtbdd.svg)
+]
 
 ---
-# Transducers
+# Operations on MTBDDs (Union)
+
+.img80c[
+    ![Language union](./img/transition_union.svg)
+]
+
+---
+# Operations on MTBDDs (Intersection)
+
+.img80c[
+    ![Language intersection](./img/transition_intersection.svg)
+]
+---
+# Performing tranduction step
+
+.img80c[
+    ![Performing transduction step](./img/transduction_step.svg)
+]
+
+---
+# Transducer composition
+
+.img60c[
+    ![Transducer composition](./img/transduction_composition.svg)
+]
+
+---
+# Implementation
+
+---
+# MTBDD Package
+
+.img50c[
+    ![CUDD wrapper for MTBDD](./img/cudd_wrapper.svg)
+]
 
 ---
 # Object-Oriented Design
+
+![Binding of policy classes](./img/binding_policy.svg)
+
+---
+# MTBDD Wrapper
+
+![Cudd interface](./img/cudd_interface.svg)
+
+---
+# Tree Automaton
+- Class
+
+---
+# Automaton import
+
+.img80c[
+    ![TABuildingDirector](./img/ta_building.svg)
+]
+
+---
+# Automaton export
+
+.img30c[
+    ![Graphical representation of tree automaton](./img/ta_graphical.svg)
+]
+
 
 ---
 # Evaluation
@@ -290,7 +297,8 @@ SA is used in the test with downward simulation.
 | A0053    	| A0246 	| 414.104s 	| 0.0010s 	|
 | A0080    	| A0246 	| 533.678s 	| 0.0012s 	|
 | A0082    	| A0246 	| 542.069s 	| 0.0012s 	|
-GRAPHS
+
+![Benchmark Union](./img/bench_union.svg)
 
 ---
 # Language Intersection
@@ -304,10 +312,10 @@ GRAPHS
 | A0080    	| A0246 	| 6.062s 	| 18.320s 	|
 | A0082    	| A0246 	| 7.503s 	| 19.355s 	|
 
-
+![Benchmark Intersection](./img/bench_intersect.svg)
 
 ---
-# Simulation Reduction
+# Simulation Reduction (State set size)
 
 | Automaton 	| States 	| Transitions 	| SA    	| libSFTA 	|
 |-----------	|--------	|-------------	|-------	|---------	|
@@ -319,14 +327,35 @@ GRAPHS
 | A0082     	| 82     	| 713         	| 0.09s 	| 331.5s  	|
 | A0089     	| 89     	| 1006        	| 0.11s 	| 226.1s  	|
 
+.img80c[
+    ![Benchmark reduction of set size](./img/bench_reduction_set_size.svg)
+]
+
+---
+# Simulation Reduction (Alphabet size)
+
+| Symbols 	| StatesSA 	| libSFTA 	|
+|---------	|----------	|---------	|
+| 1337    	| 0.06s    	| 0.0033s 	|
+| 3525    	| 0.14s    	| 0.0051s 	|
+| 7067    	| 0.26s    	| 0.0054s 	|
+| 15136   	| 0.69s    	| 0.0054s 	|
+| 31235   	| 2.09s    	| 0.0031s 	|
+| 65503   	| 8.86s    	| 0.0040s 	|
+| 130023  	| 48.40s   	| 0.0045s 	|
+
+.img80c[
+   ![Benchmark reduction of alphabet](./img/bench_reduction_alphabet.svg)
+]
 ---
 # Conclusion
 
 ---
 # libvata (VATA)
-- Cont. of the research
+- Continuation of the research
 - Implements optimized MTBDD
 - Code is rewritten and optimized
+- There exists example code
 
 
 - [Source code](https://github.com/ondrik/libvata)
