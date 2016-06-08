@@ -43,6 +43,7 @@ class: center, middle
 - Conclusion
 - libvata
 
+
 ---
 # About
 
@@ -200,11 +201,71 @@ Regular tree model checking:
 # Design
 
 ---
-# Representation
+# Representation (BDD)
+
+.left-even-column[
+Given the function:
+    ![BDD function](./img/bdd_func.svg)
+Decision tree and truth table:
+    ![BDD tree](./img/BDD.png)
+]
+
+.right-even-column[
+.text-center[
+    Binary decision diagram:
+]
+    ![BDD2](./img/bdd_simple.svg)
+]
+
+???
+- Binary decision diagram is a optimazed representation of a binary decision tree. It reduces both needed steps and size.
+- Also represents the truth table
+- In this example, given the function, we can see that if the x1 (first argument) is 1, we can already decide the end result based on the next choice, and therefore eliminate the need for the third arguemnt completly.
+
+---
+# Representation (BDD vs MTBDD)
+Binary decision diagram vs Multi-terminal binary decision diagram
+- BDD: f = {0, 1}n → {0, 1}
+- MTBDD: g = {0, 1}n → D
+.img70c[
+    ![BDD vs MTBDD](./img/bdd_vs_mtbdd.svg)
+]
+
+BDD representing formula: `x1¬x3 + ¬x1x2¬x3 + ¬x1¬x2x3`
+
+MTBDD representing formula: `¬x1¬x2¬x3A + x1x3B + ¬x1x2x3B`
+
+???
+- MTBDD is a generalisation of BDD
+- The idea of the generalisation is to allow the sinknodes of the diagram to hold other values than 1 and 0.
+- The values will instead be a part of a arbitrary domain D instead of {0, 1}.
+- BDD, f : {0, 1}n → {0, 1}
+- MTBDD, g : {0, 1}n → D
+- In this example: TODO
+
+---
+# Representation (TA as MTBDD)
+
+- A = (Q, F, Qf, ∆)
+- Q = {q1, q2, q3}
+- F = {a, b0, b2, c0, c1, d1}
+- ∆ = {b0 → {q1,q2},c0 → {q2}, d1(q2) → {q3}, b2(q1, q3) → {q1, q2}, c1(q3) → {q1, q2}} 
+- Encoding of F = a: 00, b: 01, c: 10, d: 11
 
 .img50c[
     ![Representation of shared MTBDD](./img/representation_shared_mtbdd.svg)
 ]
+
+???
+- A = (Q, F, Qf, ∆)
+- Q = {q1, q2, q3}
+- F = {a, b0, b2, c0, c1, d1}
+- ∆ = {b0 → {q1,q2},c0 → {q2}, d1(q2) → {q3}, b2(q1, q3) → {q1, q2}, c1(q3) → {q1, q2}} 
+- Qf is not relevant in this case
+- Dashed lines represent 0, solid lines represent 1
+- This diagram represents the shared MTBDD of ∆(transitions)
+- Encoding of F = a: 00, b: 01, c: 10, d: 11
+- In this example: TODO
 
 ---
 # Operations on MTBDDs (Union)
@@ -369,9 +430,9 @@ SA is used in the test with downward simulation.
 ---
 # Links
 
-Presentation: [kradalby.no/presentations/upm/talib](https://kradalby.no/presentations/upm/talib/index.html)
-Github: [github.com/kradalby/presentations](https://github.com/kradalby/presentations/blob/master/upm/talib/index.html)
-Paper: [An Efficient Finite Tree Automata Library](http://arxiv.org/abs/1204.3240)
+- Presentation: [kradalby.no/presentations/upm/talib](https://kradalby.no/presentations/upm/talib/index.html)
+- Github: [github.com/kradalby/presentations](https://github.com/kradalby/presentations/blob/master/upm/talib/index.html)
+- Paper: [An Efficient Finite Tree Automata Library](http://arxiv.org/abs/1204.3240)
 
 ---
 # Image credits
@@ -380,6 +441,7 @@ Paper: [An Efficient Finite Tree Automata Library](http://arxiv.org/abs/1204.324
   - Packaging by Richard Slater from the Noun Project
 - Slide # MONA
   - Tree by Richard Nixon from the Noun Project
+
         </textarea>
         <script src="../../static/remark-latest.min.js">
         </script>
