@@ -1,0 +1,120 @@
+@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+body { font-family: 'Droid Serif'; }
+
+h1, h2, h3, h4 {
+    font-family: 'Yanone Kaffeesatz';
+    font-weight: normal;
+}
+
+/* Two-column layout */
+.left-column {
+    color: #777;
+    width: 20%;
+    height: 92%;
+    float: left;
+}
+
+.left-column h2:last-of-type, .left-column h3:last-child {
+    color: #000;
+}
+
+.right-column {
+    width: 75%;
+    float: right;
+    padding-top: 1em;
+}
+
+/* Two-column even */
+.left-even-column {
+    width: 50%;
+    height: 92%;
+    float: left;
+}
+
+.right-even-column {
+    width: 50%;
+    float: right;
+    padding-top: 1em;
+}
+.remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+img {
+    width: 100%;
+}
+
+.img80c {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.img80l {
+    width: 80%;
+    float: left;
+}
+
+.img80r {
+    width: 80%;
+    float: right;
+}
+
+.img60c {
+    width: 60%;    
+    margin: 0 auto;
+}
+
+.img60l {
+    width: 60%;    
+    float: left;
+}
+
+.img60r {
+    width: 60%;    
+    float: right;
+}
+
+.img50c {
+    width: 50%;    
+    margin: 0 auto;
+}
+
+.img50l {
+    width: 50%;    
+    float: left;
+}
+
+.img50r {
+    width: 50%;    
+    float: right;
+}
+
+.img30c {
+    width: 30%;    
+    margin: 0 auto;
+}
+
+.img30l {
+    width: 30%;    
+    float: left;
+}
+
+.img30r {
+    width: 30%;    
+    float: right;
+}
+
+table {
+    width: 100%;
+    border: 1px solid #000000;
+    border-collapse: collapse;
+}
+
+td, th {
+    text-align: right;
+    vertical-align: top; 
+    border: 1px solid #000;
+    border-collapse: inherit;
+    padding: 0.1em;
+}
