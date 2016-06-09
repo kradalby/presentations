@@ -78,7 +78,7 @@ class: center, middle
 - Ranged Alphabet: A pair of an ordinary alphabet and a function. Each symbol in the alphabet has its arity so it can be used to build terms.
 - Bottom up: The members of Delta are rewrite rules from nodes whose childs roots are states, to nodes whose roots are states. Thus the state of a node is deduced from the states of its children.
 - Top-down: The members of Delta are rewrite rules from nodes whose roots are states to nodes whose childs' roots are states.
-
+ 
 ---
 # Exisiting Tree Automata libraries
 - Timbuk
@@ -219,6 +219,7 @@ Regular tree model checking:
 
 ---
 # Design
+TODO list of slides
 
 ---
 # Representation (BDD)
@@ -343,14 +344,46 @@ TODO $$ A_\cap := \left (Q_1 \times Q_2, F, Q_{f1} \times Q_{f2}, \Delta\cap \ri
 
 
 ---
-# Performing tranduction step
+# Tree Transducer
+- Defined as a tuple (Q, F, F', Qf, ∆)
+- Where: 
+  - Q is a set of states: $$ Q \cap F = \emptyset , Q \cap F' = \emptyset $$
+  - F and F' are finite nonempty sets of input and output symbols
+  - Qf is a set of final states
+  - ∆ is a set of transduction rules
+- In our library we use relabelling tree transducers
 
-.img80c[
-    ![Performing transduction step](./img/transduction_step.svg)
-]
+???
+- Bottum up tree tranducers are defined as (Q, F, F', Qf, ∆)
+- Relabelling tree transducers, aka structure-perserving TT.
+- This type does not change the structure of the nodes, but changes the symbols.
+ 
+---
+# Performing transduction step (Algorithm)
+
+$ A = (Q_A, F, Q_fA, \Delta_A) $ $ t = (Q_t, F, Q_ft, \Delta_t) $
+
+- Assume that transition function $ \Delta_A $ is defined over Bool variables $ x_1 .... x_n $
+- Assume that transition function $ \Delta_t $ is defined over Bool variables $ y_1 .... y_n $
+- $ x_1 .... x_n $ is used for input for the transducer
+- $ y_1 .... y_n $ is used for output for the transducer
+- The MTBDDs for the outbut automaton is over bool variables $ x_1 .... x_y $
+- The algorithm will traverse the automaton and transducer in parallel
+- Relabelling the transitions which resided in both
 
 ---
-# Transducer composition
+# Performing transduction step (Example)
+
+.img70c[
+    ![Performing transduction step](./img/transduction_step.svg)
+]
+An example of performing transduction step of transducer t on automaton A for one pair of super-states $s_t$ and $s_A$, such that $01(s_A)$ → A, $10(s_A) → B$, and $0X(s_t) → 3(1X)$, $10(s_t) → 7(01)$. Ordering $(a_1, b_1, . . . , a_n, b_n)$ is used.
+
+???
+- TODO copy algorithm from previouse page
+
+---
+# Transducer composition (Example)
 
 .img60c[
     ![Transducer composition](./img/transduction_composition.svg)
@@ -358,6 +391,7 @@ TODO $$ A_\cap := \left (Q_1 \times Q_2, F, Q_{f1} \times Q_{f2}, \Delta\cap \ri
 
 ---
 # Implementation
+TODO list of slides
 
 ---
 # MTBDD Package
@@ -366,10 +400,37 @@ TODO $$ A_\cap := \left (Q_1 \times Q_2, F, Q_{f1} \times Q_{f2}, \Delta\cap \ri
     ![CUDD wrapper for MTBDD](./img/cudd_wrapper.svg)
 ]
 
+???
+- It was not trivial to write a MTBDD implementation for the Project
+- CUDD, (Colerado University Decision Diagram Package) was selected.
+- It implements shared:
+  - BDD
+  - ADD (Algebraic decision diagrams)
+  - ZDD (zero-suppressed decision diagram)
+- In the library, the MTBDD is represented by an ADD
+- ADD is a MTBDD which puts emphasis on performing algebraic operations:
+  - addition
+  - multiplication
+  - computation of logarithm
+- The internal usage in the library is only for storage, data retrieval and performing apply
+- CUDD only allowes floating point numbers, so the library deals with the problem of substituting the float for sets of states of an automaton.
+- This is solved by patching CUDD so sink nodes can contain pointers to another datastructure.
+- Which serves as a pool of sets of stats
+- To use MTBDDs space reduction, it must hold that there are never two equal sets in the states in the pool.
+- This means that two pointers point to the same set of states if and only if they are equal.
+
 ---
 # Object-Oriented Design
 
+- Language: C++
+  - Object-orientation
+  - Efficient
+  - Extensive standard library
+
 ![Binding of policy classes](./img/binding_policy.svg)
+
+???
+
 
 ---
 # MTBDD Wrapper
@@ -522,6 +583,7 @@ SA is used in the test with downward simulation.
          // Setup MathJax
          MathJax.Hub.Config({
             tex2jax: {
+              inlineMath: [['$','$'], ['\\(','\\)']],
             skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
           }
           });
