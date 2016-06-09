@@ -59,8 +59,25 @@ class: center, middle
 
 ---
 # Tree Automata
+- **Ranked alphabet**: A pair of an ordinary alphabet and a function for builing terms
 
+- **Bottom-up finite tree automaton**: A tuple (Q, F, Qf, Δ)
+  - Q is a set of states
+  - F is a ranked Alphabet
+  - Qf is a set of final states
+  - Δ is a set of transitions
 
+- **Top-down finite tree automaton**: A tuple (Q, F, Qi, Δ)
+  - Q is a set of states
+  - F is a ranked Alphabet
+  - Qi is a set of initial states
+  - Δ is a set of transitions
+
+???
+- Alphabet: A set of symbols, a common alphabet is {0, 1}, the binary alphabet
+- Ranged Alphabet: A pair of an ordinary alphabet and a function. Each symbol in the alphabet has its arity so it can be used to build terms.
+- Bottom up: The members of Delta are rewrite rules from nodes whose childs roots are states, to nodes whose roots are states. Thus the state of a node is deduced from the states of its children.
+- Top-down: The members of Delta are rewrite rules from nodes whose roots are states to nodes whose childs' roots are states.
 
 ---
 # Exisiting Tree Automata libraries
@@ -71,6 +88,7 @@ class: center, middle
 .img50r[
     ![Packaging](./img/packaging.svg)
 ]
+
 ---
 # Timbuk
 
@@ -296,6 +314,8 @@ The Lambda-calculus is used as a definition and applications of functions that w
 # Operations on MTBDDs (Union)
 
 $$ \Delta_\cup   \left (  \right ) := Apply (\Delta_1 ()) (\Delta_2 ()) (\lambda X Y . X \cup Y) $$
+
+
 .img80c[
     ![Language union](./img/transition_union.svg)
 ]
@@ -306,15 +326,20 @@ $$ \Delta_\cup   \left (  \right ) := Apply (\Delta_1 ()) (\Delta_2 ()) (\lambda
 - Computations of Qu and Qfu are trivial
 - Since all transitions are stored in a single shared MTBDD the computation only needs one apply
  
-
 ---
 # Operations on MTBDDs (Intersection)
+
+TODO $$ A_\cap := \left (Q_1 \times Q_2, F, Q_{f1} \times Q_{f2}, \Delta\cap \right ) $$
 
 .img80c[
     ![Language intersection](./img/transition_intersection.svg)
 ]
 
 ???
+- First, construct the product of the two automaton
+- The result for AIntersect only ontains reachable states and transitions.
+- Detection of reachable states is done by starting from initial super-states of automata.
+- Analysing all transition and collecting states that may be reached until there is no unanalysed.
 
 
 ---
