@@ -276,7 +276,7 @@ MTBDD representing formula: `¬x1¬x2¬x3A + x1x3B + ¬x1x2x3B`
 - The values will instead be a part of an arbitrary domain D instead of {0, 1}.
 - BDD, f : {0, 1}n → {0, 1}
 - MTBDD, g : {0, 1}n → D
-- In this example: TODO
+- In this example: TODO: Explain MTBDD example
 
 ---
 # Representation (TA as MTBDD)
@@ -300,7 +300,7 @@ MTBDD representing formula: `¬x1¬x2¬x3A + x1x3B + ¬x1x2x3B`
 - Dashed lines represent 0, solid lines represent 1
 - This diagram represents the shared MTBDD of ∆(transitions)
 - Encoding of F = a: 00, b: 01, c: 10, d: 11
-- In this example: TODO
+- In this example: TODO: Expplain TA as MTBDD
 
 ---
 # Operations on MTBDDs
@@ -337,7 +337,7 @@ $$ \Delta_\cup   \left (  \right ) := Apply (\Delta_1 ()) (\Delta_2 ()) (\lambda
 
 ???
 - For efficiency, the transition functions of the input automaton are reused as much as possible.
-- TODO?
+- TODO: How to explain UNION
 - Computations of Qu and Qfu are trivial
 - Since all transitions are stored in a single shared MTBDD the computation only needs one apply
 
@@ -394,7 +394,14 @@ $ A = (Q_A, F, Q_fA, \Delta_A) $ $ t = (Q_t, F, Q_ft, \Delta_t) $
 An example of performing transduction step of transducer t on automaton A for one pair of super-states $s_t$ and $s_A$, such that $01(s_A)$ → A, $10(s_A) → B$, and $0X(s_t) → 3(1X)$, $10(s_t) → 7(01)$. Ordering $(a_1, b_1, . . . , a_n, b_n)$ is used.
 
 ???
-- TODO copy algorithm from previous page
+- Assume that transition function $ \Delta_A $ is defined over Bool variables $ x_1 .... x_n $
+- Assume that transition function $ \Delta_t $ is defined over Bool variables $ y_1 .... y_n $
+- $ x_1 .... x_n $ is used for input for the transducer
+- $ y_1 .... y_n $ is used for output for the transducer
+- The MTBDDs for the outbut automaton is over bool variables $ x_1 .... x_y $
+- The algorithm will traverse the automaton and transducer in parallel
+- Relabelling the transitions which resided in both
+
 
 ---
 # Implementation
