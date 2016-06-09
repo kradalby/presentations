@@ -407,13 +407,12 @@ An example of performing transduction step of transducer t on automaton A for on
 
 ???
 - Assume that transition function $ \Delta_A $ is defined over Bool variables $ x_1 .... x_n $
-- Assume that transition function $ \Delta_t $ is defined over Bool variables:
+- Assume that transducer function $ \Delta_t $ is defined over Bool variables:
   - $ x_1 .... x_n $ is used for input for the transducer
   - $ y_1 .... y_n $ is used for output for the transducer
 - The MTBDDs for the output automaton is over bool variables $ x_1 .... x_y $
 - The algorithm will traverse the automaton and transducer in parallel
 - Relabelling the transitions which resided in both
-
 
 ---
 # Implementation
@@ -559,8 +558,10 @@ An example of performing transduction step of transducer t on automaton A for on
 ]
 
 ???
-Timbuk is used in the tests with language operations.
-SA is used in the test with downward simulation.
+- Timbuk is used in the tests with language operations.
+- MONA was left out of the benchmark as it immediatly determinises unput automata so the comperason would not be fair.
+- SA is used in the test with downward simulation.
+
 
 ---
 # Language Union
