@@ -61,17 +61,17 @@ class: center, middle
 # Tree Automata
 - **Ranked alphabet**: A pair of an ordinary alphabet and a function for building terms
 
-- **Bottom-up finite tree automaton**: A tuple (Q, F, Qf, Δ)
-  - Q is a set of states
-  - F is a ranked Alphabet
-  - Qf is a set of final states
-  - Δ is a set of transitions
+- **Bottom-up finite tree automaton**: A tuple $(Q, F, Q_f, \Delta)$
+  - $Q$ is a set of states
+  - $F$ is a ranked Alphabet
+  - $Q_f$ is a set of final states
+  - $\Delta$ is a set of transitions
 
-- **Top-down finite tree automaton**: A tuple (Q, F, Qi, Δ)
-  - Q is a set of states
-  - F is a ranked Alphabet
-  - Qi is a set of initial states
-  - Δ is a set of transitions
+- **Top-down finite tree automaton**: A tuple $(Q, F, Q_i, \Delta)$
+  - $Q$ is a set of states
+  - $F$ is a ranked Alphabet
+  - $Q_i$ is a set of initial states
+  - $\Delta$ is a set of transitions
 
 ???
 - Alphabet: A set of symbols, a common alphabet is {0, 1}, the binary alphabet
@@ -149,10 +149,10 @@ class: center, middle
   - This is done before the automaton starts working.
 - Eager minimisation
   - When the automaton is modified, a Myhill-Nerode minimisation is performed
-    - Myhill-Nerode: TODO
+    - Myhill-Nerode: Minimize the initial tree automatas number of states reduce, no change in behaviour
   - Yielded unexpected good results.
   - MONA uses DAGs for representations instead of trees to represent formulae.
-- AT&T is also avpart of the collaboration
+- AT&T is also a part of the collaboration
 
 ---
 # Minor libraries
@@ -169,15 +169,14 @@ class: center, middle
   - Uses hash tables to represent transition tables
 
 ???
-- Tree transducers: TODO
-- Hedge automata: TODO
+- Tree transducers: Talk briefly about later
 
 ---
 # Analysis
 ## Abstract Regular Tree Model Checking
 
 Regular tree model checking:
-τ∗ (L(Init)) ∩ L(Bad) = ∅
+$$ T^\ast (L(Init)) ∩ L(Bad) = \emptyset $$
 
 - Abstract regular tree model checking
 - Abstraction based on languages of finite height
@@ -212,8 +211,8 @@ Regular tree model checking:
 - creating a finite tree automaton denoting the union of languages of given finite tree automata
 - creating a finite tree automaton denoting the intersection of languages of given finite tree automata
 - creating a finite tree automaton denoting the complement of the language of a given finite tree automaton
-- Deterministaion:
-- Minimisation:
+- Deterministaion: Converting a non-deterministic FTA to DFTA
+- Minimisation: Efficient minimisation
 - Reducing without Determinisation
 - Determining inclusion while avoiding determinisation of any automaton.
 
