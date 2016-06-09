@@ -18,8 +18,8 @@ class: center, middle
 # Agenda
 - About
 - Tree automata
-  - 
-- Exisiting Tree Automata libraries
+  -
+- Existing Tree Automata libraries
   - Timbuk
   - MONA
   - Minor libraries
@@ -59,7 +59,7 @@ class: center, middle
 
 ---
 # Tree Automata
-- **Ranked alphabet**: A pair of an ordinary alphabet and a function for builing terms
+- **Ranked alphabet**: A pair of an ordinary alphabet and a function for building terms
 
 - **Bottom-up finite tree automaton**: A tuple (Q, F, Qf, Δ)
   - Q is a set of states
@@ -76,11 +76,11 @@ class: center, middle
 ???
 - Alphabet: A set of symbols, a common alphabet is {0, 1}, the binary alphabet
 - Ranged Alphabet: A pair of an ordinary alphabet and a function. Each symbol in the alphabet has its arity so it can be used to build terms.
-- Bottom up: The members of Delta are rewrite rules from nodes whose childs roots are states, to nodes whose roots are states. Thus the state of a node is deduced from the states of its children.
-- Top-down: The members of Delta are rewrite rules from nodes whose roots are states to nodes whose childs' roots are states.
- 
+- Bottom up: The members of Delta are rewrite rules from nodes whose child's roots are states, to nodes whose roots are states. Thus, the state of a node is deduced from the states of its children.
+- Top-down: The members of Delta are rewrite rules from nodes whose roots are states to nodes whose child' roots are states.
+
 ---
-# Exisiting Tree Automata libraries
+# Existing Tree Automata libraries
 - Timbuk
 - MONA
 - Minor libraries
@@ -94,23 +94,23 @@ class: center, middle
 
 - Collection of tools for Term Rewriting Systems and Tree Automata
 - Version 3.1 is latest (2.2 is the latest with TA)
-- Written i OCaml by IRISA
+- Written in OCaml by IRISA
 - The code is open source (GNU LGPL v2)
 - Tree automatons are implemented as tuple of lists
 
 ![Timbuk](./img/timbuk.svg)
 
 ???
-- IRISA is a French research insitute that focuses on computer science and informatics.
+- IRISA is a French research institute that focuses on computer science and informatics.
 - 2.2 Version is patched by Ondreij to run a newer OCaml version.
 - The code is open source, and the author states that he studied the implementation.
-- The tuple consists of: 
+- The tuple consists of:
   - a list of symbols (an alphabet)
   - a list of state operators
   - a list of states
   - a list of final states
   - a list of transitions
-  - a list of prioritary transitions
+  - a list of priority transitions
 - Timbuk implements the "standard" operations:
   - Intersection
   - Union
@@ -125,12 +125,12 @@ class: center, middle
 
 - Solves decision procedures for WS1S and WS2S
 - Tree automata is a part of their "secrets"
-  - More accuretly, the representation
+  - More accurately, the representation
   - Introduces MTBDD
 - Guided tree automaton
 - Eager minimisation
 - MONA only supports deterministic finite tree automata
-- The code is open source (GNU GPLv2)
+- The code is open-source (GNU GPLv2)
 - Written in C/C++ by BRICS/Aarhus University
 
 .img50r[
@@ -140,18 +140,18 @@ class: center, middle
 ???
 - WS1S (Weak monadic Second-order theory of 1 successor)
 - WS2S (Weak monadic Second-order theory of 2 successors)
-- MONA is heavily optimized of the years, and a co-author claims that MONA is tuned to give the "best" performance.
-- MTBDD will be discussed more indept in the design part.
+- MONA is heavily optimized over the years, and a co-author claims that MONA is tuned to give the "best" performance.
+- MTBDD will be discussed more in-depth in the design part.
 - Guided tree automaton helps tackle state space blow-up.
-  - Bottom-up tree automate often suffer from the lack of position information in the tree.
+  - Bottom-up tree automaton often suffer from the lack of position information in the tree.
   - Guided tree automaton provides a guide, an additional top-down TA that labels tree nodes with state spaces (aware of position).
-  - This is done before the automaton startes working.
+  - This is done before the automaton starts working.
 - Eager minimisation
   - When the automaton is modified, a Myhill-Nerode minimisation is performed
     - Myhill-Nerode: TODO
   - Yielded unexpected good results.
-  - MONA uses DAGs for representations instead of trees to representate formulae.
-- AT&T is also apart of the collaboration
+  - MONA uses DAGs for representations instead of trees to represent formulae.
+- AT&T is also avpart of the collaboration
 
 ---
 # Minor libraries
@@ -160,7 +160,7 @@ class: center, middle
   - Written in Java
   - Naive implementation with focus on education
   - Supports standard operations
-  - Only library that implements tree transducers and hedge automata
+  - The only library that implements tree transducers and hedge automata
 - Binary Tree Automata Library
   - Written in Caml
   - Implements basic functions
@@ -168,14 +168,14 @@ class: center, middle
   - Uses hash tables to represent transition tables
 
 ???
-- Tree tranducers: TODO 
+- Tree transducers: TODO
 - Hedge automata: TODO
 
 ---
 # Analysis
 ## Abstract Regular Tree Model Checking
 
-Regular tree model checking: 
+Regular tree model checking:
 τ∗ (L(Init)) ∩ L(Bad) = ∅
 
 - Abstract regular tree model checking
@@ -188,8 +188,8 @@ Regular tree model checking:
 - Where _Bad_ is a tree automaton expressing the set of states violating the safety properties of the system.
 - Where τ is a linear tree transducer representing the transition relation of the system.
 
-- Abstract RTMC is a acceleration technique based on the _abstract-check-refine_ paradigm
-- Abstraction based on languages of finite height, defines two states of a tree automaton as equivalent if their languages up to a given height n are identical. Similar to Myhill-Nerode.
+- Abstract RTMC is an acceleration technique based on the _abstract-check-refine_ paradigm
+- Abstraction based on languages of finite height defines two states of a tree automaton as equivalent if their languages up to a given height n are identical. Similar to Myhill-Nerode.
 - Abstraction based on predicate languages defines two states of a tree automaton equivalent if their languages have a nonempty intersection with exactly the same subset of languages represented by tree automata from P.
 
 ---
@@ -201,18 +201,18 @@ Regular tree model checking:
   - Intersection
   - Complement
 - Determinisation of a finite tree automaton
-- Minimasation of a finite tree automaton
+- Minimisation of a finite tree automaton
 - Reducing the size of a nondeterministic finite tree automaton
 - Determining inclusion of languages of given finite automata
-- Tree transducers in structure-perserving form
+- Tree transducers in structure-preserving form
 - The ability to efficiently traverse all states in order
 
 ???
 - creating a finite tree automaton denoting the union of languages of given finite tree automata
 - creating a finite tree automaton denoting the intersection of languages of given finite tree automata
 - creating a finite tree automaton denoting the complement of the language of a given finite tree automaton
-- Deterministaion: 
-- Minimasation: 
+- Deterministaion:
+- Minimisation:
 - Reducing without Determinisation
 - Determining inclusion while avoiding determinisation of any automaton.
 
@@ -239,9 +239,9 @@ Decision tree and truth table:
 ]
 
 ???
-- Binary decision diagram is a optimazed representation of a binary decision tree. It reduces both needed steps and size.
+- Binary decision diagram is an optimized representation of a binary decision tree. It reduces both needed steps and size.
 - Also represents the truth table
-- In this example, given the function, we can see that if the x1 (first argument) is 1, we can already decide the end result based on the next choice, and therefore eliminate the need for the third arguemnt completly.
+- In this example, given the function, we can see that if the x1 (first argument) is 1, we can already decide the end result based on the next choice, and therefore, eliminate the need for the third argument completely.
 
 ---
 # Representation (BDD vs MTBDD)
@@ -257,9 +257,9 @@ BDD representing formula: `x1¬x3 + ¬x1x2¬x3 + ¬x1¬x2x3`
 MTBDD representing formula: `¬x1¬x2¬x3A + x1x3B + ¬x1x2x3B`
 
 ???
-- MTBDD is a generalisation of BDD
-- The idea of the generalisation is to allow the sinknodes of the diagram to hold other values than 1 and 0.
-- The values will instead be a part of a arbitrary domain D instead of {0, 1}.
+- MTBDD is a generalization of BDD
+- The idea of the generalization is to allow the sink nodes of the diagram to hold other values than 1 and 0.
+- The values will instead be a part of an arbitrary domain D instead of {0, 1}.
 - BDD, f : {0, 1}n → {0, 1}
 - MTBDD, g : {0, 1}n → D
 - In this example: TODO
@@ -270,7 +270,7 @@ MTBDD representing formula: `¬x1¬x2¬x3A + x1x3B + ¬x1x2x3B`
 - A = (Q, F, Qf, ∆)
 - Q = {q1, q2, q3}
 - F = {a, b0, b2, c0, c1, d1}
-- ∆ = {b0 → {q1,q2},c0 → {q2}, d1(q2) → {q3}, b2(q1, q3) → {q1, q2}, c1(q3) → {q1, q2}} 
+- ∆ = {b0 → {q1,q2},c0 → {q2}, d1(q2) → {q3}, b2(q1, q3) → {q1, q2}, c1(q3) → {q1, q2}}
 - Encoding of F = a: 00, b: 01, c: 10, d: 11
 
 .img50c[
@@ -281,7 +281,7 @@ MTBDD representing formula: `¬x1¬x2¬x3A + x1x3B + ¬x1x2x3B`
 - A = (Q, F, Qf, ∆)
 - Q = {q1, q2, q3}
 - F = {a, b0, b2, c0, c1, d1}
-- ∆ = {b0 → {q1,q2},c0 → {q2}, d1(q2) → {q3}, b2(q1, q3) → {q1, q2}, c1(q3) → {q1, q2}} 
+- ∆ = {b0 → {q1,q2},c0 → {q2}, d1(q2) → {q3}, b2(q1, q3) → {q1, q2}, c1(q3) → {q1, q2}}
 - Qf is not relevant in this case
 - Dashed lines represent 0, solid lines represent 1
 - This diagram represents the shared MTBDD of ∆(transitions)
@@ -322,11 +322,11 @@ $$ \Delta_\cup   \left (  \right ) := Apply (\Delta_1 ()) (\Delta_2 ()) (\lambda
 ]
 
 ???
-- For efficiency the transition functions of the input automaton is reused as much as possible.
+- For efficiency, the transition functions of the input automaton are reused as much as possible.
 - TODO?
 - Computations of Qu and Qfu are trivial
 - Since all transitions are stored in a single shared MTBDD the computation only needs one apply
- 
+
 ---
 # Operations on MTBDDs (Intersection)
 
@@ -338,26 +338,26 @@ TODO $$ A_\cap := \left (Q_1 \times Q_2, F, Q_{f1} \times Q_{f2}, \Delta\cap \ri
 
 ???
 - First, construct the product of the two automaton
-- The result for AIntersect only ontains reachable states and transitions.
+- The result for AIntersect only contains reachable states and transitions.
 - Detection of reachable states is done by starting from initial super-states of automata.
-- Analysing all transition and collecting states that may be reached until there is no unanalysed.
+- Analyzing all transition and collecting states that may be reached until there is no unanalysed.
 
 
 ---
 # Tree Transducer
 - Defined as a tuple (Q, F, F', Qf, ∆)
-- Where: 
+- Where:
   - Q is a set of states: $$ Q \cap F = \emptyset , Q \cap F' = \emptyset $$
   - F and F' are finite nonempty sets of input and output symbols
   - Qf is a set of final states
   - ∆ is a set of transduction rules
-- In our library we use relabelling tree transducers
+- In our library, we use relabelling tree transducers
 
 ???
-- Bottum up tree tranducers are defined as (Q, F, F', Qf, ∆)
-- Relabelling tree transducers, aka structure-perserving TT.
-- This type does not change the structure of the nodes, but changes the symbols.
- 
+- Bottum up tree transducers are defined as (Q, F, F', Qf, ∆)
+- Relabelling tree transducers, aka structure-preserving TT.
+- This type does not change the structure of the nodes but changes the symbols.
+
 ---
 # Performing transduction step (Algorithm)
 
@@ -380,7 +380,7 @@ $ A = (Q_A, F, Q_fA, \Delta_A) $ $ t = (Q_t, F, Q_ft, \Delta_t) $
 An example of performing transduction step of transducer t on automaton A for one pair of super-states $s_t$ and $s_A$, such that $01(s_A)$ → A, $10(s_A) → B$, and $0X(s_t) → 3(1X)$, $10(s_t) → 7(01)$. Ordering $(a_1, b_1, . . . , a_n, b_n)$ is used.
 
 ???
-- TODO copy algorithm from previouse page
+- TODO copy algorithm from previous page
 
 ---
 # Transducer composition (Example)
@@ -401,20 +401,20 @@ TODO list of slides
 ]
 
 ???
-- It was not trivial to write a MTBDD implementation for the Project
-- CUDD, (Colerado University Decision Diagram Package) was selected.
+- It was not trivial to write an MTBDD implementation for the Project
+- CUDD, (Colorado University Decision Diagram Package) was selected.
 - It implements shared:
   - BDD
   - ADD (Algebraic decision diagrams)
   - ZDD (zero-suppressed decision diagram)
 - In the library, the MTBDD is represented by an ADD
-- ADD is a MTBDD which puts emphasis on performing algebraic operations:
+- ADD is an MTBDD which puts emphasis on performing algebraic operations:
   - addition
   - multiplication
   - computation of logarithm
 - The internal usage in the library is only for storage, data retrieval and performing apply
-- CUDD only allowes floating point numbers, so the library deals with the problem of substituting the float for sets of states of an automaton.
-- This is solved by patching CUDD so sink nodes can contain pointers to another datastructure.
+- CUDD only allows floating point numbers, so the library deals with the problem of substituting the float for sets of states of an automaton.
+- This is solved by patching CUDD so sink nodes can contain pointers to another data structure.
 - Which serves as a pool of sets of stats
 - To use MTBDDs space reduction, it must hold that there are never two equal sets in the states in the pool.
 - This means that two pointers point to the same set of states if and only if they are equal.
@@ -430,36 +430,85 @@ TODO list of slides
 ![Binding of policy classes](./img/binding_policy.svg)
 
 ???
-
+- Policy based Design
+- This approach uses policy classes which cannot (should not)  be instantiated.
+- Each policy should provide some functionality, which is used in host classes to provide a complete type
+- The policy classes are implemented as interfaces and the host class is implemented as a template.
+- The policy classes of a host class are resolved statically during compile time.
+- The author argues that this will allow the compiler optimize for faster Code
+- Advantage over using virtual methods
 
 ---
 # MTBDD Wrapper
 
+- Wrapper around CUDD Library
+- Simplified and minimal API
+
 ![Cudd interface](./img/cudd_interface.svg)
+
+???
+- CUDDFacade is a class following the facade design pattern.
+- Simplifying the access to CUDD which provides an extensive and confusing API.
+- CUDDFacade provides a clean, minimal and type-safe interface with only the minimal operations needed by the library.
+- CUDDSharedMTBDD is an object-oriented representation of the shared MTBDD
+- CUDDFacade is the middleman between CUDD and CUDDSharedMTBDD, ref illustration.
+
 
 ---
 # Tree Automaton
-- Class
+- The tree automaton is represented as a class `TreeAutomaton`
+- Provides high-level interface
+  - Allows the use of human-readable names of states and symbols
+  - Provides mapping for the inner representations
+  - Enables adding of state, transition and marking a state final
+- Supports importing and exporting tree automaton to and from a file.
+
+.img30r[
+    ![File](./img/file.svg)
+]
 
 ---
 # Automaton import
+
+- Generic and extendable class for building of Tree Automata
+- Currently implemented with `TimbukTABuilder`
 
 .img80c[
     ![TABuildingDirector](./img/ta_building.svg)
 ]
 
+???
+- Supports a Timbuk like file format
+- To go along with the reading from file feature
+
 ---
 # Automaton export
 
-.img30c[
-    ![Graphical representation of tree automaton](./img/ta_graphical.svg)
+.left-even-column[
+- Difficult to extract transitions from symbolic to explicit
+- This was achieved by setting each boolean variable to X
+- And attempt to bind it to 0 or 1
+
+- States are represented as circles
+- Final states as double circles
+- Super-states are rectangles with boxes
+
 ]
 
+.right-even-column[
+.img70c[
+    ![Graphical representation of tree automaton](./img/ta_graphical.svg)
+]
+]
+
+???
+- If the value remains X, it is not an important value
+- The conversation is over when all boolean variables have been checked.
 
 ---
 # Evaluation
 - Libraries
-  - libSFTA  
+  - libSFTA
   - Timbuk
   - SA
 - Benchmarking
@@ -467,49 +516,49 @@ TODO list of slides
   - Simulation Reduction
 
 ???
-Timbuk is used in the tests with language opreations.
+Timbuk is used in the tests with language operations.
 SA is used in the test with downward simulation.
 
 ---
 # Language Union
 
-| Automata 	|       	| Timbuk   	| libSFTA 	|
-|----------	|-------	|----------	|---------	|
-| A0053    	| A0054 	| 1.982s   	| 0.0005s 	|
-| A0080    	| A0082 	| 37.645s  	| 0.0007s 	|
-| A0080    	| A0111 	| 37.645s  	| 0.0008s 	|
-| A0053    	| A0246 	| 414.104s 	| 0.0010s 	|
-| A0080    	| A0246 	| 533.678s 	| 0.0012s 	|
-| A0082    	| A0246 	| 542.069s 	| 0.0012s 	|
+| Automata     |           | Timbuk       | libSFTA     |
+|----------    |-------    |----------    |---------    |
+| A0053        | A0054     | 1.982s       | 0.0005s     |
+| A0080        | A0082     | 37.645s      | 0.0007s     |
+| A0080        | A0111     | 37.645s      | 0.0008s     |
+| A0053        | A0246     | 414.104s     | 0.0010s     |
+| A0080        | A0246     | 533.678s     | 0.0012s     |
+| A0082        | A0246     | 542.069s     | 0.0012s     |
 
 ![Benchmark Union](./img/bench_union.svg)
 
 ---
 # Language Intersection
 
-| Automata 	|       	| Timbuk 	| libSFTA 	|
-|----------	|-------	|--------	|---------	|
-| A0053    	| A0054 	| 0.076s 	| 0.057s  	|
-| A0053    	| A0246 	| 0.609s 	| 0.617s  	|
-| A0080    	| A0082 	| 1.862s 	| 1.675s  	|
-| A0080    	| A0111 	| 2.483s 	| 3.765s  	|
-| A0080    	| A0246 	| 6.062s 	| 18.320s 	|
-| A0082    	| A0246 	| 7.503s 	| 19.355s 	|
+| Automata     |           | Timbuk     | libSFTA     |
+|----------    |-------    |--------    |---------    |
+| A0053        | A0054     | 0.076s     | 0.057s      |
+| A0053        | A0246     | 0.609s     | 0.617s      |
+| A0080        | A0082     | 1.862s     | 1.675s      |
+| A0080        | A0111     | 2.483s     | 3.765s      |
+| A0080        | A0246     | 6.062s     | 18.320s     |
+| A0082        | A0246     | 7.503s     | 19.355s     |
 
 ![Benchmark Intersection](./img/bench_intersect.svg)
 
 ---
 # Simulation Reduction (State set size)
 
-| Automaton 	| States 	| Transitions 	| SA    	| libSFTA 	|
-|-----------	|--------	|-------------	|-------	|---------	|
-| A0053     	| 53     	| 159         	| 0.04s 	| 24.6s   	|
-| A0054     	| 54     	| 241         	| 0.04s 	| 29.3s   	|
-| A0063     	| 63     	| 571         	| 0.10s 	| 55.2s   	|
-| A0070     	| 70     	| 622         	| 0.07s 	| 71.5s   	|
-| A0080     	| 80     	| 672         	| 0.11s 	| 274.4s  	|
-| A0082     	| 82     	| 713         	| 0.09s 	| 331.5s  	|
-| A0089     	| 89     	| 1006        	| 0.11s 	| 226.1s  	|
+| Automaton     | States     | Transitions     | SA        | libSFTA     |
+|-----------    |--------    |-------------    |-------    |---------    |
+| A0053         | 53         | 159             | 0.04s     | 24.6s       |
+| A0054         | 54         | 241             | 0.04s     | 29.3s       |
+| A0063         | 63         | 571             | 0.10s     | 55.2s       |
+| A0070         | 70         | 622             | 0.07s     | 71.5s       |
+| A0080         | 80         | 672             | 0.11s     | 274.4s      |
+| A0082         | 82         | 713             | 0.09s     | 331.5s      |
+| A0089         | 89         | 1006            | 0.11s     | 226.1s      |
 
 .img80c[
     ![Benchmark reduction of set size](./img/bench_reduction_set_size.svg)
@@ -518,15 +567,15 @@ SA is used in the test with downward simulation.
 ---
 # Simulation Reduction (Alphabet size)
 
-| Symbols 	| StatesSA 	| libSFTA 	|
-|---------	|----------	|---------	|
-| 1337    	| 0.06s    	| 0.0033s 	|
-| 3525    	| 0.14s    	| 0.0051s 	|
-| 7067    	| 0.26s    	| 0.0054s 	|
-| 15136   	| 0.69s    	| 0.0054s 	|
-| 31235   	| 2.09s    	| 0.0031s 	|
-| 65503   	| 8.86s    	| 0.0040s 	|
-| 130023  	| 48.40s   	| 0.0045s 	|
+| Symbols     | StatesSA     | libSFTA     |
+|---------    |----------    |---------    |
+| 1337        | 0.06s        | 0.0033s     |
+| 3525        | 0.14s        | 0.0051s     |
+| 7067        | 0.26s        | 0.0054s     |
+| 15136       | 0.69s        | 0.0054s     |
+| 31235       | 2.09s        | 0.0031s     |
+| 65503       | 8.86s        | 0.0040s     |
+| 130023      | 48.40s       | 0.0045s     |
 
 .img80c[
    ![Benchmark reduction of alphabet](./img/bench_reduction_alphabet.svg)
@@ -536,8 +585,8 @@ SA is used in the test with downward simulation.
 - Aim of the thesis
 - The library is able to to the needed operations
 - It does a lot of them efficiently
-- A efficient representation of Tree automata has been proposed
-- The library can complement exisiting solution, specially on big alphabets
+- An efficient representation of Tree automata has been proposed
+- The library can complement existing solution, especially on big alphabets
 
 ---
 # libvata (VATA)
@@ -566,10 +615,12 @@ SA is used in the test with downward simulation.
 # Image credits
 - All diagrams are by Ondřej Lengál
   - Except Slide # Representation (BDD) which is Wikimedia Commons
-- Slide # Exisiting Tree Automata libraries
+- Slide # Existing Tree Automata libraries
   - Packaging by Richard Slater from the Noun Project
 - Slide # MONA
   - Tree by Richard Nixon from the Noun Project
+- Slide # Tree Automaton
+  - File by Arthur Shlain from the Noun Project
 
         </textarea>
         <script src="../../static/remark-latest.min.js"></script>
