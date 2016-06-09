@@ -256,6 +256,9 @@ Decision tree and truth table:
 - Binary decision diagram is an optimized representation of a binary decision tree. It reduces both needed steps and size.
 - Also represents the truth table
 - In this example, given the function, we can see that if the x1 (first argument) is 1, we can already decide the end result based on the next choice, and therefore, eliminate the need for the third argument completely.
+- BDD is reduced by:
+  - Merge any isomorphic subgraphs
+  - Eliminate any node whose two children are isomorphic
 
 ---
 # Representation (BDD vs MTBDD)
@@ -281,14 +284,23 @@ MTBDD representing formula: `¬x1¬x2¬x3A + x1x3B + ¬x1x2x3B`
 ---
 # Representation (TA as MTBDD)
 
+.left-even-column[
 - A = (Q, F, Qf, ∆)
 - Q = {q1, q2, q3}
 - F = {a, b0, b2, c0, c1, d1}
-- ∆ = {b0 → {q1,q2},c0 → {q2}, d1(q2) → {q3}, b2(q1, q3) → {q1, q2}, c1(q3) → {q1, q2}}
+- ∆ = 
+  - $ b0 \rightarrow {q1,q2} $
+  - $ c0 \rightarrow {q2} $
+  - $ d1(q2) \rightarrow {q3} $
+  - $ b2(q1, q3) \rightarrow {q1, q2} $
+  - $ c1(q3) \rightarrow {q1, q2} $
 - Encoding of F = a: 00, b: 01, c: 10, d: 11
+]
 
-.img50c[
+.right-even-column[
+.img80c[
     ![Representation of shared MTBDD](./img/representation_shared_mtbdd.svg)
+]
 ]
 
 ???
@@ -378,10 +390,10 @@ $$ A_\cap := \left (Q_1 \times Q_2, F, Q_f1 \times Q_f2, \Delta\cap \right ) $$
 $ A = (Q_A, F, Q_fA, \Delta_A) $ $ t = (Q_t, F, Q_ft, \Delta_t) $
 
 - Assume that transition function $ \Delta_A $ is defined over Bool variables $ x_1 .... x_n $
-- Assume that transition function $ \Delta_t $ is defined over Bool variables $ y_1 .... y_n $
-- $ x_1 .... x_n $ is used for input for the transducer
-- $ y_1 .... y_n $ is used for output for the transducer
-- The MTBDDs for the outbut automaton is over bool variables $ x_1 .... x_y $
+- Assume that transition function $ \Delta_t $ is defined over Bool variables:
+  - $ x_1 .... x_n $ is used for input for the transducer
+  - $ y_1 .... y_n $ is used for output for the transducer
+- The MTBDDs for the output automaton is over bool variables $ x_1 .... x_y $
 - The algorithm will traverse the automaton and transducer in parallel
 - Relabelling the transitions which resided in both
 
@@ -395,10 +407,10 @@ An example of performing transduction step of transducer t on automaton A for on
 
 ???
 - Assume that transition function $ \Delta_A $ is defined over Bool variables $ x_1 .... x_n $
-- Assume that transition function $ \Delta_t $ is defined over Bool variables $ y_1 .... y_n $
-- $ x_1 .... x_n $ is used for input for the transducer
-- $ y_1 .... y_n $ is used for output for the transducer
-- The MTBDDs for the outbut automaton is over bool variables $ x_1 .... x_y $
+- Assume that transition function $ \Delta_t $ is defined over Bool variables:
+  - $ x_1 .... x_n $ is used for input for the transducer
+  - $ y_1 .... y_n $ is used for output for the transducer
+- The MTBDDs for the output automaton is over bool variables $ x_1 .... x_y $
 - The algorithm will traverse the automaton and transducer in parallel
 - Relabelling the transitions which resided in both
 
