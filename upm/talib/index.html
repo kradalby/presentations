@@ -220,7 +220,17 @@ Regular tree model checking:
 
 ---
 # Design
-TODO list of slides
+- Representation
+  - BDD
+  - BDD vs MTBDD
+  - TA as MTBDD
+- Operations on MTBDDs
+  - Union
+  - Intersection
+- Tree Transducer
+- Performing transduction step
+  - Algorithm
+  - Example   
 
 ---
 # Representation (BDD)
@@ -331,7 +341,7 @@ $$ \Delta_\cup   \left (  \right ) := Apply (\Delta_1 ()) (\Delta_2 ()) (\lambda
 ---
 # Operations on MTBDDs (Intersection)
 
-TODO $$ A_\cap := \left (Q_1 \times Q_2, F, Q_{f1} \times Q_{f2}, \Delta\cap \right ) $$
+$$ A_\cap := \left (Q_1 \times Q_2, F, Q_f1 \times Q_f2, \Delta\cap \right ) $$
 
 .img80c[
     ![Language intersection](./img/transition_intersection.svg)
@@ -384,15 +394,13 @@ An example of performing transduction step of transducer t on automaton A for on
 - TODO copy algorithm from previous page
 
 ---
-# Transducer composition (Example)
-
-.img60c[
-    ![Transducer composition](./img/transduction_composition.svg)
-]
-
----
 # Implementation
-TODO list of slides
+- MTBDD Package
+- Object-Oriented Design
+- MTBDD Wrapper
+- Tree Automaton
+- Automaton import
+- Automaton export
 
 ---
 # MTBDD Package
@@ -513,8 +521,12 @@ TODO list of slides
   - Timbuk
   - SA
 - Benchmarking
-  - Language operations (Union, Intersection)
+  - Language
+    - Union
+    - Intersection
   - Simulation Reduction
+    - State set size
+    - Alphabet size
 
 ???
 Timbuk is used in the tests with language operations.
