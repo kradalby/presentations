@@ -11,7 +11,7 @@
 class: center, middle
 
 # AN EFFICIENT FINITE TREE AUTOMATA LIBRARY
-## Reading Group on Advanced Analysis of Non-Functional Global Properties
+### Reading Group on Advanced Analysis of Non-Functional Global Properties
 #### Kristoffer Dalby
 
 ---
@@ -170,6 +170,7 @@ $$ T^\ast (L(Init)) ∩ L(Bad) = \emptyset $$
 - Where τ is a linear tree transducer representing the transition relation of the system.
 
 - Abstract RTMC is an acceleration technique based on the _abstract-check-refine_ paradigm
+  - The idea is that when we have huge automatons, we can optimize them by generating abstractions that are just enough to answer a particular question.
 - Abstraction based on languages of finite height defines two states of a tree automaton as equivalent if their languages up to a given height n are identical. Similar to Myhill-Nerode.
 - Abstraction based on predicate languages defines two states of a tree automaton equivalent if their languages have a nonempty intersection with exactly the same subset of languages represented by tree automata from P.
 
@@ -258,6 +259,7 @@ MTBDD representing formula: `¬x1¬x2¬x3A + x1x3B + ¬x1x2x3B`
 - MTBDD is a generalization of BDD
 - The idea of the generalization is to allow the sink nodes of the diagram to hold other values than 1 and 0.
 - The values will instead be a part of an arbitrary domain D instead of {0, 1}.
+- ⊥ (Bottom): such that ⊥ is a element in the arbitrary domain.
 - BDD, f : {0, 1}n → {0, 1}
 - MTBDD, g : {0, 1}n → D
 - In this example: TODO: Explain MTBDD example
@@ -371,7 +373,7 @@ $$ A_\cap := \left (Q_1 \times Q_2, F, Q_f1 \times Q_f2, \Delta\cap \right ) $$
 $ A = (Q_A, F, Q_fA, \Delta_A) $ $ t = (Q_t, F, Q_ft, \Delta_t) $
 
 - Assume that transition function $ \Delta_A $ is defined over Bool variables $ x_1 .... x_n $
-- Assume that transition function $ \Delta_t $ is defined over Bool variables:
+- Assume that transducer function $ \Delta_t $ is defined over Bool variables:
   - $ x_1 .... x_n $ is used for input for the transducer
   - $ y_1 .... y_n $ is used for output for the transducer
 - The MTBDDs for the output automaton is over bool variables $ x_1 .... x_y $
