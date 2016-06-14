@@ -14,12 +14,14 @@ build:
 
 deploy:
   ssh:
-    host: onyx.fap.no
-    user: www
+    host: seel.fap.no
+    user: root
     port: 22
     when:
         branch: master
     commands:
-      - cd /usr/local/www/kradalby.no/presentations
+      - cd /srv/www/kradalby.no/presentations
       - git pull
+      - git submodule update --recursive
+      - git submodule foreach git pull origin master
       - echo "done"
