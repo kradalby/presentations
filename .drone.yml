@@ -15,12 +15,12 @@ build:
 deploy:
   ssh:
     host: seel.fap.no
-    user: root
+    user: www
     port: 22
     when:
         branch: master
     commands:
-      - cd /srv/www/kradalby.no/presentations
+      - cd /usr/local/www/kradalby.no/presentations
       - git pull
       - git submodule update --recursive
       - git submodule foreach git pull origin master
