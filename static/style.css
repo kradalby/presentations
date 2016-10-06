@@ -49,6 +49,11 @@ h1, h2, h3, h4 {
     text-align: center;
 }
 
+.row{
+    display: inline-block;
+    width: 100%;
+}
+
 img {
     width: 100%;
 }
@@ -84,47 +89,107 @@ img {
 }
 
 .img60c {
-    width: 60%;    
+    width: 60%;
     margin: 0 auto;
 }
 
 .img60l {
-    width: 60%;    
+    width: 60%;
     float: left;
 }
 
 .img60r {
-    width: 60%;    
+    width: 60%;
     float: right;
 }
 
 .img50c {
-    width: 50%;    
+    width: 50%;
     margin: 0 auto;
 }
 
 .img50l {
-    width: 50%;    
+    width: 50%;
     float: left;
 }
 
 .img50r {
-    width: 50%;    
+    width: 50%;
+    float: right;
+}
+
+.img40c {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.img40l {
+    width: 40%;
+    float: left;
+}
+
+.img40r {
+    width: 40%;
     float: right;
 }
 
 .img30c {
-    width: 30%;    
+    width: 30%;
     margin: 0 auto;
 }
 
 .img30l {
-    width: 30%;    
+    width: 30%;
     float: left;
 }
 
 .img30r {
-    width: 30%;    
+    width: 30%;
+    float: right;
+}
+
+.img20c {
+    width: 20%;
+    margin: 0 auto;
+}
+
+.img20l {
+    width: 20%;
+    float: left;
+}
+
+.img20r {
+    width: 20%;
+    float: right;
+}
+
+.img15c {
+    width: 15%;
+    margin: 0 auto;
+}
+
+.img15l {
+    width: 15%;
+    float: left;
+}
+
+.img15r {
+    width: 15%;
+    float: right;
+}
+
+.img10c {
+    width: 10%;
+    margin: 0 auto;
+}
+
+.img10l {
+    width: 10%;
+    float: left;
+}
+
+.img10r {
+    width: 10%;
     float: right;
 }
 
@@ -136,7 +201,7 @@ table {
 
 td, th {
     text-align: right;
-    vertical-align: top; 
+    vertical-align: top;
     border: 1px solid #000;
     border-collapse: inherit;
     padding: 0.1em;
