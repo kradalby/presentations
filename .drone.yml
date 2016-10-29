@@ -20,7 +20,7 @@ deploy:
     when:
         branch: master
     commands:
-      - cd /usr/local/www/kradalby.no/presentations
+      - cd /usr/local/www/presentations.kradalby.no/
       - git pull
       - git submodule update --recursive
       - git submodule foreach git pull origin master
