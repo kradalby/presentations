@@ -14,7 +14,7 @@ build:
 
 deploy:
   ssh:
-    host: seel.fap.no
+    host: seel.terra.fap.no
     user: www
     port: 22
     when:
