@@ -4,13 +4,15 @@ build:
     commands:
       - echo "Deploying"
 
-#notify:
-#  email:
-#    from: drone@fap.no
-#    host: smtp.stud.ntnu.no
-#    port: 25
-#    recipients:
-#      - kradalby@kradalby.no
+notify:
+  email:
+    from: drone@fap.no
+    host: mail.ntnu.fap.no
+    port: 25
+    recipients:
+      - kradalby@kradalby.no
+    when:
+        branch: master
 
 deploy:
   ssh:
