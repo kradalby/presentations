@@ -145,10 +145,79 @@ class: center, middle
 
 ---
 # Ruting basics
+- Instruksjon på hvor pakker skal dyttes
+- "Lag 3" nettverk, rutet nettverk
+- Unngå broadcast storm / loop
+-
+
+#### Oppgave
+- Oppgi alle "ruter" en pakke som sendes fra en datamaskin på hver rad må gjennom frem til Core
 
 ---
-# Cisco basics
+# Cisco basics (1)
 
+## Koble til med seriell
+
+Still inn seriell console software til COM porten switchen er koblet til, set baudrate til 9600 og trykk start/connect
+
+## Reset switch
+```
+Reboot and hold mode button until light flashes.
+
+> flash_init
+> del flash:config.text
+> del flash:vlan.dat
+> boot
+
+```
+
+---
+# Cisco basics (1)
+
+## Oppgave
+Gå sammen i grupper og:
+1. Koble til med seriell til en Cisco switch
+2. Reset switchen
+
+---
+# Cisco basics (2)
+
+Gå inn i konfigurasjonsmodus:
+
+    enable
+    conf t
+
+Kjekke ting å starte med:
+
+Sett hostname:
+
+    hostname HOSTNAME
+
+Skru av domene oppslag:
+
+    no ip domain-lookup
+
+Skru på ruting:
+
+    ip routing
+
+
+---
+# Cisco basics (3)
+Sette ip adresse på et interface/vlan:
+
+    Switch(config)# interface g0/1
+    Switch(config-if)# no switchport
+    Switch(config-if)# no shutdown
+    Switch(config-if)# ip address <ip given by isp> <netmask>
+    Switch(config-if)# description <description>
+    Switch(config-if)# end
+
+
+---
+# Cisco basics (3)
+## Oppgave:
+Gå sammen to og to og konfigurer ip adressene for rad 1, 2, 3, 4 på de fire første grensesnittene på kjerne switchen.
 
 ---
 # Linux oppfriskning
@@ -157,21 +226,7 @@ class: center, middle
 # ISC DHCP basics
 
 ---
-# Verktøy
-
-- Debian Linux
-- ISC DHCP
-- BIND9
-- suberduber
-- lgs326.py
-
----
-# ISC DHCP
-.left-column[
-- Open Source
-- Automasjon
-- Konfigurerbar
-]
+# ISC DHCP Trøndelan 2015
 .right-column[
 ```json
 # row-2-1, port: 2
@@ -199,6 +254,22 @@ subnet 178.164.22.32 netmask 255.255.255.224  {
 }
 ```
 ]
+---
+
+# Repitisjons oppgaver
+
+- Oppgi alle ruter fra en deltager maskin til KraISP/NTNU
+- Loop nettverket på en deltager switch, hva skjer?
+
+---
+# Verktøy
+
+- Debian Linux
+- ISC DHCP
+- BIND9
+- suberduber
+- lgs326.py
+
 ---
 # lgs326.py
 - DHCP
