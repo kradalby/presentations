@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Teknisk presentasjon, Trøndelan Høst 2015</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+      /* Two-column even */
+      .left-even-column {
+        width: 50%;
+        height: 92%;
+        float: left;
+      }
+      .right-even-column {
+        width: 50%;
+        float: right;
+        padding-top: 1em;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      img {
+      width: 100%;
+      }
+      .svg-resize {
+        width: 70%;
+      }
+      .img-height {
+        width: 60%
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Teknisk presentasjon
+## Trøndelan Høst 2015
+
+---
+
+# Agenda
+
+1. Internett
+2. Utstyr
+3. Design
+4. Verktøy
+
+---
+# Utstyr
+
+- **Kjerne**: Cisco Catalyst 3750G
+
+- **Kant på rad**: Linksys LGS326
+
+- **Ymse**: Cisco 2950, Netgear
+
+- **Servere onsite**: Dell something
+
+- **Trådløst**: Ubiquiti Unifi AP
+
+---
+# IP-plan Trøndelan 2015
+
+.left-even-column[
+### Deltagere
+- Rad 1  - 178.164.22.0/27
+- Rad 2  - 178.164.22.32/27
+- Rad 3  - 178.164.22.64/27
+- Rad 4  - 178.164.22.96/27
+- Rad 5  - 178.164.22.128/27
+- Rad 6  - 178.164.22.160/27
+- Rad 7  - 178.164.22.192/27
+- Rad 8  - 178.164.22.224/27
+- Rad 9  - 178.164.23.0/27
+- Rad 10 - 178.164.23.32/27
+- Rad 11 - 178.164.23.128/27
+]
+.right-even-column[
+### Crew
+- Crew - 178.164.23.64/26
+- Teknisk - 178.164.23.160/27
+- WLAN - 178.164.23.192/26
+]
+
+---
+# Fysisk
+.right-column[
+.svg-resize[
+![Hall plan](img/hallplan.svg)
+]
+]
+---
+
+# Dagens setup
+
+- KraISP sortboks, ett nettverksuttak som deler DHCP
+- "Public IP-er" 10.0.0.0/23, 512 adresser
+- Core switch
+- 2-3 rader
+- DHCP
+- Eventuelt WiFi
+- Eventuelt autoconfig av bordswitcher
+
+
+---
+# IP-plan
+
+#### Vi trenger:
+- Deltager rader (/27)
+- Crew rade(r) (/26)
+- Teknisk (/27)
+- WLAN (/26) (om for deltagere må det NATes)
+
+#### KTN Repitisjons tid
+- Network
+- Gateway
+- Broadcast
+- Netmask
+
+#### Oppgave
+- Gå sammen i par og lag en IP plan hvor dere skriver Network, Gateway og Broadcast for fire deltagerrader, og resten av radene. Nettene skal være sammenhengende.
+
+---
+# Ruting basics
+
+---
+# Cisco basics
+
+
+---
+# Linux oppfriskning
+
+---
+# ISC DHCP basics
+
+---
+# Verktøy
+
+- Debian Linux
+- ISC DHCP
+- BIND9
+- suberduber
+- lgs326.py
+
+---
+# ISC DHCP
+.left-column[
+- Open Source
+- Automasjon
+- Konfigurerbar
+]
+.right-column[
+```json
+# row-2-1, port: 2
+subnet 178.164.22.32 netmask 255.255.255.224  {
+    pool {
+        allow unknown-clients;
+        deny members of "linksys";
+        option subnet-mask 255.255.255.224 ;
+        option routers 178.164.22.33;
+        option domain-name "row-2-1.h15.trondelan.no";
+        ddns-domainname "row-2-1.h15.trondelan.no";
+        range 178.164.22.35 178.164.22.62;
+    }
+    pool {
+        default-lease-time 100;
+        max-lease-time 100;
+        option subnet-mask 255.255.255.224 ;
+        option routers 178.164.22.33;
+        range 178.164.22.34 178.164.22.34;
+        allow members of "linksys";
+        on commit {
+            execute("/usr/bin/python3.4", "/lgs326.py...;
+        }
+    }
+}
+```
+]
+---
+# lgs326.py
+- DHCP
+- Telnet
+- TFTP
+
+[github.com/kradalby/suberduber](https://github.com/kradalby/suberduber/blob/master/scripts/lgs326.py)
+---
+# nettbrett
+.svg-resize[
+![Screenshot of nettbrett](img/nettbrett.png)
+]
+---
+# Lenker
+
+## Presentasjonen
+[github.com/kradalby/presentations](https://github.com/kradalby/presentations)
+
+## Konfigurasjon
+[github.com/CasualGaming/tbag](https://github.com/CasualGaming/tbag)
+---
+# ?
+
+
+    </textarea>
+    <script src="../../static/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
