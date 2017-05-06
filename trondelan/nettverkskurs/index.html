@@ -219,11 +219,113 @@ Sette ip adresse på et interface/vlan:
 ## Oppgave:
 Gå sammen to og to og konfigurer ip adressene for rad 1, 2, 3, 4 på de fire første grensesnittene på kjerne switchen.
 
+Konfigurer deretter en ip på vlan1 på Cisco 2950 med en "deltager" adresse og få ping til å fungere fra switch til switch
+
+---
+# Cisco basics (4)
+## SSH
+
+```
+Switch> en
+Switch# conf t
+Switch(config)# aaa new-model
+Switch(config)# username kradalby password 0 derp
+```
+
+```
+Switch(config)# line vty 0 4
+Switch(config)# transport input SSH
+```
+
+```
+Switch(config)# ip domain-name fap.no
+Switch(config)# crypto key generate rsa
+How many bits in the modulus [512]: 2048
+Switch(config)#ip ssh time-out 60
+Switch(config)#ip ssh authentication-retries 3
+```
+
+---
+# Cisco basics (4)
+
+## Telnet
+```
+Switch> en
+Switch# conf t
+Switch(config)#line vty 0 4
+Switch(config-line)#login
+Switch(config-line)#password derp
+```
+
+---
+# Cisco basics (4)
+## Oppgave:
+Konfigurer SSH på Cisco 3750G og Telnet på Cisco 2950
+
+Sett dere deretter i switchene, sett fast IP på maskinene deres og prøve å koble til.
+
+
+---
+# Cisco not-so-basic (1)
+# Crewswitch
+## Vlan "inn" grensesnitt
+```
+interface FastEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 25
+ switchport trunk allowed vlan 25
+ switchport mode trunk
+```
+
+## Vlan "ut" grensenitt
+```
+interface FastEthernet0/2
+ switchport access vlan 25
+ switchport mode access
+ spanning-tree portfast
+```
+
+---
+# Cisco not-so-basic (1)
+# Core
+```
+interface Vlan25
+ description Crew
+ ip address <ip address> <netmask>
+```
+
+```
+interface GigabitEthernet1/0/45
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 25
+ switchport mode trunk
+```
+
+---
+# Cisco not-so-basic (1)
+## Oppgave:
+Konfigurer VLAN på Cisco 2950 hvor det første grensesnittet er koblet til Cisco 3750G, konfigurer deretter 2-5 til å være "access" porter.
+
+Konfigurer VLAN 25 på 3750, med ip konfigurasjonen til crew raden. Sett også opp en port til for tilkobling med 2950.
+
+Sett fast IP på to maskiner fra crew nettet, koble de til i port 2-5, ping hverandre og VLAN 25.
+
 ---
 # Linux oppfriskning
 
 ---
 # ISC DHCP basics
+
+```
+subnet 10.0.0.32 netmask 255.255.255.224  {
+    pool {
+        option subnet-mask 255.255.255.224 ;
+        option routers 10.0.0.33;
+        range 10.0.0.35 10.0.0.62;
+    }
+}
+```
+
 
 ---
 # ISC DHCP Trøndelan 2015
@@ -255,6 +357,25 @@ subnet 178.164.22.32 netmask 255.255.255.224  {
 ```
 ]
 ---
+# ISC DHCP basics
+Oppgave:
+Definer subnettene for alle nettverkene vi laget tidligere. Deltager 1-4, Crew, Teknisk, WLAN
+
+Felles:
+La oss legge inn dette og se om det virker...
+
+---
+# Cisco not-so-basic (2)
+
+DHCP magi
+
+```
+ip helper-address <ip address>
+```
+
+Oppgave: Skru av fast ip, og prøv å motta ip fra de forskjellige radene.
+
+---
 
 # Repitisjons oppgaver
 
@@ -262,19 +383,14 @@ subnet 178.164.22.32 netmask 255.255.255.224  {
 - Loop nettverket på en deltager switch, hva skjer?
 
 ---
-# Verktøy
+Generering av IP config
 
-- Debian Linux
-- ISC DHCP
-- BIND9
-- suberduber
-- lgs326.py
+[subnetter](https://github.com/kradalby/suberduber/tree/master/subnetter)
 
 ---
 # lgs326.py
-- DHCP
-- Telnet
-- TFTP
+
+[lgs326](https://github.com/kradalby/suberduber/blob/master/scripts/lgs326.py)
 
 [github.com/kradalby/suberduber](https://github.com/kradalby/suberduber/blob/master/scripts/lgs326.py)
 ---
