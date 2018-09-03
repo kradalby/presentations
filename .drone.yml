@@ -1,0 +1,15 @@
+pipeline:
+  build:
+    image: plugins/docker
+    repo: kradalby/presentations
+    auto_tag: true
+    secrets: [ docker_username, docker_password ]
+
+  notify:
+    image: drillster/drone-email
+    host: mail.ntnu.fap.no
+    port: 25
+    from: drone@drone.fap.no
+    recipients: [ kradalby@kradalby.no ]
+    when:
+      status: [ success, changed, failure ]
