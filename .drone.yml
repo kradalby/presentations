@@ -2,8 +2,21 @@ pipeline:
   build:
     image: plugins/docker
     repo: kradalby/presentations
-    auto_tag: true
+    # auto_tag: true
     secrets: [ docker_username, docker_password ]
+    tags:
+        - ${DRONE_COMMIT_SHA:0:8}
+        - latest
+
+  deploy:
+    image: quay.io/honestbee/drone-kubernetes
+    deployment: presentations-deployment
+    repo: kradalby/presentations
+    container: presentations-container
+    namespace: default
+    secrets: [ kubernetes_server, kubernetes_cert, kubernetes_token ]
+    tag:
+        - ${DRONE_COMMIT_SHA:0:8} 
 
   notify:
     image: drillster/drone-email
@@ -13,3 +26,4 @@ pipeline:
     recipients: [ kradalby@kradalby.no ]
     when:
       status: [ success, changed, failure ]
+      
