@@ -13,14 +13,15 @@ pipeline:
     deployment: presentations-deployment
     repo: kradalby/presentations
     container: presentations-container
-    namespace: default
+    namespace: presentations 
     secrets: [ kubernetes_server, kubernetes_cert, kubernetes_token ]
     tag:
         - ${DRONE_COMMIT_SHA:0:8} 
 
   notify:
     image: drillster/drone-email
-    host: mail.ntnu.fap.no
+    host: smtp.fap.no
+    skip_verify: true
     port: 25
     from: drone@drone.fap.no
     recipients: [ kradalby@kradalby.no ]
