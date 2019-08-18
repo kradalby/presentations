@@ -10,8 +10,9 @@ steps:
 - name: build
   cache: true
   pull: if-not-exists
-  image: plugins/docker
+  image: banzaicloud/drone-kaniko
   settings:
+    cache: true
     repo: kradalby/presentations
     tags:
     - ${DRONE_COMMIT_SHA:0:8}
