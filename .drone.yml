@@ -26,8 +26,8 @@ steps:
   pull: if-not-exists
   image: quay.io/honestbee/drone-kubernetes
   settings:
-    container: presentations-container
-    deployment: presentations-deployment
+    container: common 
+    deployment: presentations
     namespace: presentations
     repo: kradalby/presentations
     tag:
