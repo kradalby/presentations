@@ -44,7 +44,7 @@
               ],
             "username": { "from_secret": "docker_username" },
           },
-        "when": { "branch": ["master"], "event": ["push"] },
+        "when": { "branch": ["master", "main"], "event": ["push"] },
       },
       {
         "commands":
@@ -63,7 +63,7 @@
         "image": "kradalby/drone-kubectl",
         "name": "Deploy presentations to Kubernetes",
         "pull": "always",
-        "when": { "branch": ["master"], "event": ["push"] },
+        "when": { "branch": ["master", "main"], "event": ["push"] },
       },
       {
         "image": "appleboy/drone-discord",
@@ -77,7 +77,7 @@
           },
         "when":
           {
-            "branch": ["master"],
+            "branch": ["master", "main"],
             "event": ["push"],
             "status": ["success", "failure"],
           },
