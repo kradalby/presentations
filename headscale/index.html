@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>headscale - Open Source Tailscale control server</title>
+    <meta charset="utf-8" />
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body {
+        font-family: "Droid Serif";
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Yanone Kaffeesatz";
+        font-weight: normal;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+      .left-column h2:last-of-type,
+      .left-column h3:last-child {
+        color: #000;
+      }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+      /* Two-column even */
+      .left-even-column {
+        width: 50%;
+        height: 92%;
+        float: left;
+      }
+      .right-even-column {
+        width: 50%;
+        float: right;
+        padding-top: 1em;
+      }
+      .bottom {
+        position: absolute;
+        bottom: 5%;
+      }
+      .remark-code,
+      .remark-inline-code {
+        font-family: "Ubuntu Mono";
+      }
+      img {
+        width: 90%;
+      }
+      full-slide-img {
+        margin: 0 auto;
+        height: 90%;
+      }
+      .svg-resize {
+        width: 70%;
+      }
+      .img-height {
+        width: 60%;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+![headscale-logo](./img/headscale3_header_stacked_left.png)
+## Open Source Tailscale's control server
+
+---
+# Meg
+- Kristoffer Dalby
+- SRE for G-Research i London
+
+---
+
+# Agenda
+
+1. Hva er WireGuard?
+2. Hva er Tailscale?
+3. headscale
+
+
+---
+# Grafikk
+
+Denne presentasjonen inneholder brilliant grafikk fra:
+
+- Tailscale Inc
+- Jason A. Donenfeld (WireGuard)
+
+
+---
+# Hva er WireGuard?
+
+- VPN
+  - Moderne
+  - Enkel
+  - state-of-the-art kryptering
+  - Raskere
+  - Lettvekt
+
+
+.bottom[
+![wireguard](./img/wireguard.svg)
+]
+
+---
+# Hva er WireGuard?
+
+1. Public og private key mellom to noder
+2. Du får et nettverksgrensesnitt (f. eks. `wg0`) på hver maskin
+3. Profit
+
+WireGuard er knall for å sette opp punkt-til-punkt tilkoblinger
+
+---
+# Utfordring med WireGuard
+
+Punkt-til-punkt er enkelt når minst _en_ maskin er tilgjengelig på internet.
+
+Men hva om to noder er begge bak brannmur eller NAT?
+
+.center[
+  ![firewall](./img/nat-firewalls-2.png)
+]
+
+---
+# Hva er Tailscale?
+
+- Null konfigurasjons VPN
+- Setter opp alle-til-alle (mesh) nettverk magisk
+- Styr brannmur og ACL mellom nodene sentralt
+- Automagisk NAT traversering
+- Klienter for Windows, Linux, macOS, iOS, Android, m.m.
+
+---
+
+# Hva er Tailscale?
+
+.center[
+  ![før](./img/home-network-before.svg)
+]
+
+---
+# Hva er Tailscale?
+
+.center[
+  ![etter](./img/home-network-after.svg)
+]
+
+
+---
+# Hvordan fungerer Tailscale?
+
+.center[
+  ![nat-traversering](./img/nat-intro.png)
+]
+
+Source: https://tailscale.com/blog/how-nat-traversal-works
+
+---
+# Hvordan fungerer Tailscale?
+
+.center[
+  ![stateful-firewall](./img/nat-firewalls-2.png)
+]
+
+---
+# Hvordan fungerer Tailscale?
+
+.center[
+  ![stateful-firewall](./img/nat-firewalls-3.png)
+]
+
+---
+# Hvordan fungerer Tailscale?
+
+.center[
+  ![stateful-firewall](./img/nat-firewalls-4.png)
+]
+
+---
+# Hvordan fungerer Tailscale?
+
+.center[
+  ![stateful-firewall](./img/nat-overview-1.png)
+]
+
+.center[
+  ![stateful-firewall](./img/nat-overview-2.png)
+]
+
+---
+# Hvordan fungerer Tailscale?
+
+.center[
+  ![stateful-firewall](./img/nat-stun-1.png)
+]
+
+---
+# Hvordan fungerer Tailscale?
+
+.center[
+  ![stateful-firewall](./img/nat-stun-2.png)
+]
+
+---
+# Hvordan fungerer Tailscale?
+
+.center[
+  ![stateful-firewall](./img/mesh-coordination-server.svg)
+]
+
+---
+# Hvordan fungerer Tailscale?
+
+.center[
+  ![stateful-firewall](./img/hub-and-spoke-multiple.svg)
+]
+
+---
+# Hvordan fungerer Tailscale?
+
+.center[
+  ![stateful-firewall](./img/hub-and-spoke-direct.svg)
+]
+
+---
+# headscale
+
+- Re-implementasjon av Tailscale control server (coordinator)
+- Skrevet i Go
+- Orginalt skrevet av Juan Font
+- Godt forhold til Tailscale utviklere
+
+---
+# Funksjonalitet
+
+- self-hosted
+- Kan være "air gapped"
+- Maskin registrering (CLI basert og OpenID Connect)
+- ACL
+- Exit nodes
+- Fildeling (taildrop)
+- DNS og MagicDNS
+- _Most_ Tailscale features
+
+---
+# Fra Tailscale devs
+
+![bradfitz-use-tailscale](./img/bradfitz-use-headscale.png)
+
+---
+# Krigshistorie
+
+![madjam](./img/madjam-outage.jpeg)
+
+---
+# Ikke helt ferdig...
+
+- iOS og Android har ikke instillinger for å endre control server
+- Web UI
+- Terraform?
+
+---
+# ?
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
